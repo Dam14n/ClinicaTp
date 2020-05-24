@@ -5,7 +5,9 @@ import { AppComponent } from './app.component';
 import { RegistroComponent } from './componentes/registro/registro.component';
 import { LoginComponent } from './componentes/login/login.component';
 import { ErrorComponent } from './componentes/error/error.component';
-import { RuteoModule } from './ruteo/ruteo.module';
+import { RuteoModule } from './modulos/ruteo/ruteo.module';
+import { AngularMaterialModule } from './modulos/angular-material/angular-material.module';
+import { AngularFirebaseModule } from './modulos/angular-firebase/angular-firebase.module';
 
 @NgModule({
   declarations: [
@@ -16,7 +18,9 @@ import { RuteoModule } from './ruteo/ruteo.module';
   ],
   imports: [
     BrowserModule,
-    RuteoModule
+    RuteoModule,
+    AngularMaterialModule,
+    AngularFirebaseModule
   ],
   providers: [],
   bootstrap: [AppComponent]
