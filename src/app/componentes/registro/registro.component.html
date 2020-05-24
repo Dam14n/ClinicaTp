@@ -1,0 +1,57 @@
+<div class="container">
+  <div class="row">
+    <div class="col-lg-10 col-xl-9 mx-auto">
+      <div class="card card-signin flex-row my-5">
+        <div class="card-body">
+          <h5 class="card-title text-center">Registrarse</h5>
+          <form [formGroup]="signUpForm" class="form-signin">
+
+            <div class="usuario-container">
+              <mat-form-field appearance="fill">
+                <mat-label>Ingrese un usuario</mat-label>
+                <input matInput placeholder="Usuario" [formControl]="signUpForm.controls.usuario" required>
+                <mat-error *ngIf="signUpForm.controls.usuario.invalid">
+                  Por favor inserte un usuario!!
+                </mat-error>
+              </mat-form-field>
+            </div>
+
+            <hr>
+            <div class="clave-container">
+              <mat-form-field appearance="fill">
+                <mat-label>Ingrese una clave</mat-label>
+                <input matInput [type]="hideClave ? 'password' : 'text'" [formControl]="signUpForm.controls.clave" required>
+                <button mat-icon-button matSuffix (click)="hideClave = !hideClave" [attr.aria-label]="'Ocultar clave'"
+                  [attr.aria-pressed]="hideClave">
+                  <mat-icon>{{hideClave ? 'visibility_off' : 'visibility'}}</mat-icon>
+                </button>
+                <mat-error *ngIf="signUpForm.controls.clave.invalid">
+                  Por favor ingrese una clave!!
+                </mat-error>
+              </mat-form-field>
+
+              <mat-form-field appearance="fill">
+                <mat-label>Confirme la clave</mat-label>
+                <input matInput [type]="hideConfirmarClave ? 'password' : 'text'" [formControl]="signUpForm.controls.confirmarClave" [errorStateMatcher]="matcher" required>
+                <button mat-icon-button matSuffix (click)="hideConfirmarClave = !hideConfirmarClave" [attr.aria-label]="'Ocultar clave'"
+                  [attr.aria-pressed]="hideConfirmarClave">
+                  <mat-icon>{{hideConfirmarClave ? 'visibility_off' : 'visibility'}}</mat-icon>
+                </button>
+                <mat-error *ngIf="signUpForm.controls.confirmarClave.invalid">
+                  Por favor confirme la clave!!
+                </mat-error>
+                <mat-error *ngIf="signUpForm.hasError('notSame')">
+                  La clave no coincide!!!
+                </mat-error>
+              </mat-form-field>
+            </div>
+            <hr>
+
+            <button [ngClass]="{'button-dissabled': signUpForm.invalid}" class="btn btn-lg btn-primary btn-block text-uppercase" (click)=registrarUsuario() [disabled]="signUpForm.invalid">Registrarse</button>
+            <button class="btn btn-lg btn-primary btn-block text-uppercase" (click)="cancelar()">Cancelar</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

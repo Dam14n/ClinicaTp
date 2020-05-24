@@ -1,0 +1,62 @@
+<div class="login-image d-flex justify-content-center h-100">
+  <div class="card">
+    <div class="card-header">
+      <h3>Iniciar Sesion</h3>
+    </div>
+    <div class="card-body">
+      <form [formGroup]="loginForm">
+        <div *ngIf="showInvalidLogin" class="alert alert-danger">
+           Usuario o clave invalidos!!!
+        </div>
+        <div class="input-group form-group">
+          <div class="input-group-prepend">
+            <span class="input-group-text"><i class="fa fa-user"></i></span>
+          </div>
+          <input formControlName="usuario" id="usuario" type="text" class="form-control" placeholder="usuario" required
+            [ngClass]="{ 'tieneErrores': intentoHacerLogin && form.usuario.errors }">
+        </div>
+        <div *ngIf="intentoHacerLogin && form.usuario.errors" class="alert alert-danger">
+          <div *ngIf="form.usuario.errors.required">
+            Usuario es requerido.
+          </div>
+        </div>
+        <div class="d-flex flex-column">
+          <div class="input-group form-group">
+            <div class="input-group-prepend">
+              <span class="input-group-text"><i class="fa fa-key"></i></span>
+            </div>
+            <input formControlName="clave" id="clave" type="password" class="form-control" placeholder="clave" required
+              [ngClass]="{ 'tieneErrores': intentoHacerLogin && form.clave.errors }">
+          </div>
+          <div *ngIf="intentoHacerLogin && form.clave.errors" class="alert alert-danger">
+            <div *ngIf="form.clave.errors.required">
+              Clave es requerida.
+            </div>
+          </div>
+        </div>
+        <div class="row align-items-center remember">
+          <input type="checkbox">Recordarme
+        </div>
+        <div class="form-group space-between">
+          <input type="submit" value="ADMIN" class="btn float-right login_btn" (click)="entrarComoAdmin()">
+          <input [ngClass]="{'button-dissabled': loginForm.invalid}" type="submit" value="Login"
+            class="btn float-right login_btn" (click)="entrar()" [disabled]="loginForm.invalid">
+        </div>
+      </form>
+    </div>
+    <div class="card-footer">
+      <div class="d-flex justify-content-center links">
+        No tienes una cuenta?<a href="/Registro">Registrarse</a>
+      </div>
+      <div class="d-flex justify-content-center">
+        <a href="/Login">Olvidaste tu clave?</a>
+      </div>
+    </div>
+    <div *ngIf="logeando" class="progress">
+      <div class="progress-bar progress-bar-info progress-bar-striped active" [class]="clase" role="progressbar"
+        aria-valuenow="10" aria-valuemin="0" aria-valuemax="100" [style.width]="progresoDeAncho">
+        {{progresoMensaje}} - {{progreso}}%
+      </div>
+    </div>
+  </div>
+</div>
