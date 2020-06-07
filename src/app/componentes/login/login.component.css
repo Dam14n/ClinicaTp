@@ -1,13 +1,19 @@
 /* Made with love by Mutiullah Samim*/
 /* https://bootsnipp.com/snippets/vl4R7 */
 
-@import url('https://fonts.googleapis.com/css?family=Numans');
+@import url("https://fonts.googleapis.com/css?family=Numans");
 
 .login-image {
   background-image: url("/assets/imagenes/loginImage.png");
   background-size: cover;
+  background-position: center;
   background-repeat: no-repeat;
-  font-family: 'Numans', sans-serif;
+  font-family: "Numans", sans-serif;
+  filter: blur(8px);
+  -webkit-filter: blur(8px);
+  position: fixed;
+  height: 100%;
+  width: 100%;
 }
 
 .card {
@@ -24,7 +30,7 @@
 
 .input-group-prepend span {
   width: 50px;
-  background-color: #FFC312;
+  background-color: #ffc312;
   color: black;
   border: 0 !important;
 }
@@ -32,7 +38,6 @@
 input:focus {
   outline: 0 0 0 0 !important;
   box-shadow: 0 0 0 0 !important;
-
 }
 
 .remember {
@@ -48,7 +53,7 @@ input:focus {
 
 .login_btn {
   color: black;
-  background-color: #FFC312;
+  background-color: #ffc312;
   width: 100px;
 }
 
