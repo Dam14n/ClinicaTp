@@ -22,7 +22,7 @@ export class AuthService {
   // }
 
   public isAuthenticated(): boolean {
-    const usuario = localStorage.getItem('usuario');
+    const usuario = localStorage.getItem('clinicaCredentials');
     return usuario !== null && usuario !== undefined;
   }
 
@@ -39,7 +39,7 @@ export class AuthService {
   }
 
   public logout() {
-    localStorage.removeItem('usuario');
+    localStorage.removeItem('clinicaCredentials');
   }
 
   public registrarUsuario(usuario: string, clave: string) {
@@ -49,6 +49,6 @@ export class AuthService {
 
   // TODO mover a usuario service (refactorizar codigo de este servicio)
   public obtenerUsuarioActual(): Usuario {
-    return JSON.parse(localStorage.getItem('usuario'));
+    return JSON.parse(localStorage.getItem('clinicaCredentials'));
   }
 }

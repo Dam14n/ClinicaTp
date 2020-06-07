@@ -9,8 +9,9 @@ const MiRuteo = [
   { path: '', component: LoginComponent, pathMatch: 'full' },
   { path: 'Login', component: LoginComponent },
   { path: 'Registro', component: RegistroComponent },
-  { path: '**', component: ErrorComponent },
-  { path: 'error', component: ErrorComponent }];
+  { path: '**', redirectTo: 'Login' },
+  { path: 'error', component: ErrorComponent }
+];
 
 @NgModule({
   imports: [
