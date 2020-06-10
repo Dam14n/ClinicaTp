@@ -20,3 +20,9 @@
 .user-type-container {
   width: 35%;
 }
+
+img {
+  display: block;
+  margin: auto;
+  margin-top: 20px;
+}
