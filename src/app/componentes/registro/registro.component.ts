@@ -1,3 +1,4 @@
+import { transition, trigger, style, animate } from '@angular/animations';
 import { Component, Input, OnInit } from '@angular/core';
 import { FormControl, FormGroup, FormGroupDirective, NgForm, Validators } from '@angular/forms';
 import { ErrorStateMatcher } from '@angular/material/core';
@@ -18,10 +19,21 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
 	selector: 'app-registro',
 	templateUrl: './registro.component.html',
 	styleUrls: ['./registro.component.css'],
+	animations: [
+		trigger('moveRightToLeft', [
+			transition(':enter', [
+				style({ transform: 'translateX(200px)' }),
+				animate('500ms', style({ transform: 'translateX(0px)' })),
+			]),
+			// transition(':leave', [
+			// 	animate('100ms', style({ transform: 'translateY(200px)' }))
+			// ])
+		])
+	]
 })
 export class RegistroComponent implements OnInit {
 	@Input() showAdmin = false;
-	
+
 	signUpForm = new FormGroup({
 		usuario: new FormControl('', Validators.required),
 		clave: new FormControl('', Validators.required),
@@ -65,7 +77,7 @@ export class RegistroComponent implements OnInit {
 		this.router.navigate(['']);
 	}
 
-	onSelectionChange = ({value}) => {
+	onSelectionChange = ({ value }) => {
 		switch (<any>TipoUsuario[value]) {
 			case this.tiposUsuario.ADMIN:
 				this.esRegistroPaciente = false;
