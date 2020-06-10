@@ -21,6 +21,7 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
 })
 export class RegistroComponent implements OnInit {
 	@Input() showAdmin = false;
+	
 	signUpForm = new FormGroup({
 		usuario: new FormControl('', Validators.required),
 		clave: new FormControl('', Validators.required),
@@ -28,11 +29,16 @@ export class RegistroComponent implements OnInit {
 		email: new FormControl('', Validators.required),
 		tipo: new FormControl('', Validators.required)
 	}, this.validarClaves);
+
 	hideClave = true;
 	hideConfirmarClave = true;
 	tiposUsuario = TipoUsuario;
 	matcher = new MyErrorStateMatcher();
 	tipoUsuario: TipoUsuario;
+
+	esRegistroAdmin = false;
+	esRegistroPaciente = false;
+	esRegistroProfesional = false;
 
 	constructor(
 		private authService: AuthService,
@@ -57,6 +63,31 @@ export class RegistroComponent implements OnInit {
 		const clave = this.signUpForm.controls.clave.value;
 		this.authService.registrarUsuario(usuario, clave);
 		this.router.navigate(['']);
+	}
+
+	onSelectionChange = ({value}) => {
+		switch (<any>TipoUsuario[value]) {
+			case this.tiposUsuario.ADMIN:
+				this.esRegistroPaciente = false;
+				this.esRegistroProfesional = false;
+				this.esRegistroAdmin = true;
+				break;
+			case this.tiposUsuario.PACIENTE:
+				this.esRegistroPaciente = true;
+				this.esRegistroProfesional = false;
+				this.esRegistroAdmin = false;
+				break;
+			case this.tiposUsuario.PROFESIONAL:
+				this.esRegistroPaciente = false;
+				this.esRegistroProfesional = true;
+				this.esRegistroAdmin = false;
+				break;
+			default:
+				this.esRegistroPaciente = false;
+				this.esRegistroProfesional = false;
+				this.esRegistroAdmin = false;
+				break;
+		}
 	}
 
 }

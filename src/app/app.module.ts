@@ -12,6 +12,9 @@ import { AngularMaterialModule } from './modulos/angular-material/angular-materi
 import { RuteoModule } from './modulos/ruteo/ruteo.module';
 import { EnumToArrayPipe } from './pipe/enum-to-array.pipe';
 import { ExcludeFilterPipe } from './pipe/exclude-filter.pipe';
+import { RegistroAdminComponent } from './componentes/registro-admin/registro-admin.component';
+import { RegistroPacienteComponent } from './componentes/registro-paciente/registro-paciente.component';
+import { RegistroProfesionalComponent } from './componentes/registro-profesional/registro-profesional.component';
 
 
 
@@ -23,7 +26,10 @@ import { ExcludeFilterPipe } from './pipe/exclude-filter.pipe';
     LoginComponent,
     ErrorComponent,
     EnumToArrayPipe,
-    ExcludeFilterPipe
+    ExcludeFilterPipe,
+    RegistroAdminComponent,
+    RegistroPacienteComponent,
+    RegistroProfesionalComponent
   ],
   imports: [
     BrowserModule,

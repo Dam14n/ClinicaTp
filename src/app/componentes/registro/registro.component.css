@@ -6,3 +6,8 @@
 .button-dissabled {
   cursor: not-allowed;
 }
+
+.container-flex{
+  display: flex;
+  flex-direction: row;
+}
