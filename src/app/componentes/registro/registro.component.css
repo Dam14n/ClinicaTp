@@ -1,9 +1,4 @@
-.usuario-container {
-  display: flex;
-  flex-direction: column;
-}
-
-.clave-container {
+.flex-container {
   display: flex;
   flex-direction: column;
 }
