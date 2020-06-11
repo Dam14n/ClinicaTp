@@ -71,6 +71,6 @@
     </div>
   </div>
   <app-registro-admin class="user-type-container" @moveRightToLeft *ngIf="esRegistroAdmin"></app-registro-admin>
-  <app-registro-paciente class="user-type-container" @moveRightToLeft *ngIf="esRegistroPaciente"></app-registro-paciente>
-  <app-registro-profesional class="user-type-container" @moveRightToLeft *ngIf="esRegistroProfesional"></app-registro-profesional>
+  <app-registro-paciente class="user-type-container" @moveRightToLeft *ngIf="esRegistroPaciente" [parentForm]="signUpForm"></app-registro-paciente>
+  <app-registro-profesional class="user-type-container" @moveRightToLeft *ngIf="esRegistroProfesional" [parentForm]="signUpForm"></app-registro-profesional>
 </div>

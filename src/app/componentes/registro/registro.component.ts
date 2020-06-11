@@ -33,7 +33,6 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
 })
 export class RegistroComponent implements OnInit {
 	@Input() showAdmin = false;
-
 	signUpForm = new FormGroup({
 		usuario: new FormControl('', Validators.required),
 		clave: new FormControl('', Validators.required),

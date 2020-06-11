@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { FormControl } from '@angular/forms';
+import { Component, Input, OnInit } from '@angular/core';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Especialidad } from 'src/app/clases/especialidad';
 import { EspecialidadService } from 'src/app/servicios/especialidad.service';
 
@@ -9,8 +9,9 @@ import { EspecialidadService } from 'src/app/servicios/especialidad.service';
   styleUrls: ['./registro-profesional.component.css']
 })
 export class RegistroProfesionalComponent implements OnInit {
+	@Input() parentForm: FormGroup;
   displayedColumns: string[] = ['nombre', 'quitar'];
-  especialidadesForm = new FormControl();
+  especialidadesForm: FormControl;
   especialidades: Especialidad[];
   especialidadesElegidas: Array<Especialidad>;
   selectSelections: any[];
@@ -22,6 +23,8 @@ export class RegistroProfesionalComponent implements OnInit {
   ngOnInit() {
     this.especialidadesElegidas = new Array<Especialidad>();
     this.especialidadService.obtenerEspecialidades().subscribe(espec => this.especialidades = espec);
+    this.parentForm.addControl('especialidades', new FormControl('', Validators.required));
+    this.especialidadesForm =  this.parentForm.controls.especialidades as FormControl;
   }
 
   onSeleccionarEspecialidad(especialidad: Especialidad) {
