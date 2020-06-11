@@ -8,6 +8,8 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 })
 export class RegistroPacienteComponent implements OnInit {
 	@Input() parentForm: FormGroup;
+	imagen1Form: FormControl;
+	imagen2Form: FormControl;
 	urlImageOne = '';
 	urlImageTwo = '';
 	
@@ -15,6 +17,10 @@ export class RegistroPacienteComponent implements OnInit {
 	}
 
 	ngOnInit() {
+		this.parentForm.addControl('imagen1', new FormControl('', Validators.required));
+		this.parentForm.addControl('imagen2', new FormControl('', Validators.required));
+		this.imagen1Form =  this.parentForm.controls.imagen1 as FormControl;
+		this.imagen2Form =  this.parentForm.controls.imagen2 as FormControl;
 	}
 
 	onSelectFile(event) {
@@ -25,8 +31,10 @@ export class RegistroPacienteComponent implements OnInit {
 				const url = readerEvent.target.result.toString();
 				if (event.target.id === "input-image2") {
 					this.urlImageTwo = url;
+					this.imagen2Form.setValue(url);
 				} else {
 					this.urlImageOne = url;
+					this.imagen1Form.setValue(url);
 				}
 			}
 		}
