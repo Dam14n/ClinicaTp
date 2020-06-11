@@ -18,13 +18,13 @@ const ESPECIALIDADES: Especialidad[] = [
   styleUrls: ['./registro-profesional.component.css']
 })
 export class RegistroProfesionalComponent implements OnInit {
-  displayedColumns: string[] = ['nombre'];
-  columnsToDisplay: string[] = ['nombre'];
+  displayedColumns: string[] = ['nombre', 'quitar'];
   especialidadesForm = new FormControl();
   especialidades: Especialidad[] = ESPECIALIDADES;
   especialidadesElegidas: Array<Especialidad>;
+  selectSelections: any[];
 
-  constructor(private changeDetectorRefs: ChangeDetectorRef) {
+  constructor() {
   }
 
   ngOnInit() {
@@ -41,8 +41,14 @@ export class RegistroProfesionalComponent implements OnInit {
     this.especialidadesElegidas = new Array<Especialidad>(...this.especialidadesElegidas);
   }
 
-  obtenerValor(element) {
-    console.log(element);
+  onQuitarEspecialidad(especialidad: Especialidad){
+    const indexSelect = this.selectSelections.indexOf(especialidad.nombre);
+    this.selectSelections.splice(indexSelect, 1);
+    this.selectSelections = new Array<any>(...this.selectSelections);
+
+    const index = this.especialidadesElegidas.indexOf(especialidad);
+    this.especialidadesElegidas.splice(index, 1);
+    this.especialidadesElegidas = new Array<Especialidad>(...this.especialidadesElegidas);
   }
 
 }
