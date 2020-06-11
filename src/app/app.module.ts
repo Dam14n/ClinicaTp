@@ -17,7 +17,6 @@ import { AngularMaterialModule } from './modulos/angular-material/angular-materi
 import { RuteoModule } from './modulos/ruteo/ruteo.module';
 import { EnumToArrayPipe } from './pipe/enum-to-array.pipe';
 import { ExcludeFilterPipe } from './pipe/exclude-filter.pipe';
-import { NavegacionComponent } from './componentes/abstract/navegacion/navegacion.component';
 
 
 
@@ -34,8 +33,7 @@ import { NavegacionComponent } from './componentes/abstract/navegacion/navegacio
     RegistroPacienteComponent,
     RegistroProfesionalComponent,
     MenuComponent,
-    BienvenidoComponent,
-    NavegacionComponent
+    BienvenidoComponent
   ],
   imports: [
     BrowserModule,
