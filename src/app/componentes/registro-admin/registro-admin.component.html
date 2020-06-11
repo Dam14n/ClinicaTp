@@ -1,1 +1,11 @@
-<p>registro-admin works!</p>
+<div class="main-container">
+    <div class="register-container">
+        <div class="card card-signin flex-row my-5">
+            <div class="card-body">
+                <h5 class="card-title text-center">PACIENTE</h5>
+                <input type='file' (change)="onSelectFile($event)" id="input-image">
+                <img *ngIf="url" [src]="url" height="200" alt="Imagen para subir"> <br />
+            </div>
+        </div>
+    </div>
+</div>

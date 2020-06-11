@@ -38,7 +38,7 @@ export class RegistroComponent implements OnInit {
 		usuario: new FormControl('', Validators.required),
 		clave: new FormControl('', Validators.required),
 		confirmarClave: new FormControl('', Validators.required),
-		email: new FormControl('', Validators.required),
+		email: new FormControl('', [Validators.required, Validators.email]),
 		tipo: new FormControl('', Validators.required)
 	}, this.validarClaves);
 

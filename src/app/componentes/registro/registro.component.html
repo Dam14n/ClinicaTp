@@ -14,7 +14,7 @@
             </mat-form-field>
             <mat-form-field  appearance="fill">
               <mat-label>Email</mat-label>
-              <input matInput placeholder="Ex. pat@ejemplo.com" [formControl]="signUpForm.controls.email" >
+              <input matInput placeholder="Ex. pat@ejemplo.com" [formControl]="signUpForm.controls.email" required>
               <mat-error *ngIf="signUpForm.controls.email.invalid">
                 Por favor inserte un email valido!!
               </mat-error>

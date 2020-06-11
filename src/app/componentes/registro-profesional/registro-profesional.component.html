@@ -1,1 +1,30 @@
-<p>registro-profesional works!</p>
+<div class="main-container">
+    <div class="register-container">
+        <div class="card card-signin flex-row my-5">
+            <div class="card-body">
+                <h5 class="card-title text-center">PROFESIONAL</h5>
+                <mat-form-field appearance="fill">
+                    <mat-label>ESPECIALIDADES</mat-label>
+                    <mat-select [formControl]="especialidadesForm" multiple>
+                        <mat-select-trigger>
+                            {{especialidadesForm.value ? especialidadesForm.value[0] : ''}}
+                            <span *ngIf="especialidadesForm.value?.length > 1" class="example-additional-selection">
+                                (+{{especialidadesForm.value.length - 1}} {{especialidadesForm.value?.length === 2 ? 'other' : 'others'}})
+                            </span>
+                        </mat-select-trigger>
+                        <mat-option *ngFor="let especialidad of especialidades" [value]="especialidad.nombre" (click)="onSeleccionarEspecialidad(especialidad)">{{especialidad.nombre}}</mat-option>
+                    </mat-select>
+                </mat-form-field>
+                <mat-table mat-table [dataSource]="especialidadesElegidas" class="mat-elevation-z8">
+                    <ng-container [matColumnDef]="column" *ngFor="let column of displayedColumns">
+                        <mat-header-cell *matHeaderCellDef> {{column}} </mat-header-cell>
+                        <mat-cell *matCellDef="let element"> {{element[column]}} </mat-cell>
+                    </ng-container>
+
+                    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+                    <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+                </mat-table>
+            </div>
+        </div>
+    </div>
+</div>
