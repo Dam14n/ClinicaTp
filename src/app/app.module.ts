@@ -15,6 +15,7 @@ import { ExcludeFilterPipe } from './pipe/exclude-filter.pipe';
 import { RegistroAdminComponent } from './componentes/registro-admin/registro-admin.component';
 import { RegistroPacienteComponent } from './componentes/registro-paciente/registro-paciente.component';
 import { RegistroProfesionalComponent } from './componentes/registro-profesional/registro-profesional.component';
+import { HomeComponent } from './componentes/home/home.component';
 
 
 
@@ -29,7 +30,8 @@ import { RegistroProfesionalComponent } from './componentes/registro-profesional
     ExcludeFilterPipe,
     RegistroAdminComponent,
     RegistroPacienteComponent,
-    RegistroProfesionalComponent
+    RegistroProfesionalComponent,
+    HomeComponent
   ],
   imports: [
     BrowserModule,

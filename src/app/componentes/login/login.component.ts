@@ -26,7 +26,7 @@ export class LoginComponent implements OnInit {
 
   ngOnInit() {
     if (this.authService.isAuthenticated()) {
-      this.router.navigate(['/Principal']);
+      this.router.navigate(['/Home']);
     }
   }
 
@@ -39,7 +39,7 @@ export class LoginComponent implements OnInit {
       this.intentoHacerLogin = true;
       const usuario = this.loginForm.value.usuario;
       const clave = this.loginForm.value.clave;
-      this.authService.login(usuario, clave, () => { }, this.onLoginError);
+      this.authService.login(usuario, clave, () => { this.router.navigate(['/Home']); }, this.onLoginError);
     }
   }
 

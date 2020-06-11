@@ -32,7 +32,7 @@ export class AuthService {
     this.usuarios.subscribe(usuarios => {
       const user = usuarios.find(unUsuario => unUsuario.nombre === nombre && unUsuario.clave === clave);
       if (user) {
-        localStorage.setItem('usuario', JSON.stringify(user));
+        localStorage.setItem('clinicaCredentials', JSON.stringify(user));
         onLogin();
       } else {
         onLoginError();
