@@ -26,12 +26,24 @@
 
                     <ng-container matColumnDef="quitar">
                         <mat-header-cell *matHeaderCellDef> Quitar </mat-header-cell>
-                        <mat-cell *matCellDef="let element"><img src="/assets/imagenes/close-icon.svg" height="20" alt="Borrar especialidad" (click)="onQuitarEspecialidad(element)"></mat-cell>
+                        <mat-cell *matCellDef="let element"><img src="/assets/imagenes/close-icon.svg" height="20"
+                                alt="Borrar especialidad" (click)="onQuitarEspecialidad(element)"></mat-cell>
                     </ng-container>
 
                     <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
                     <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
                 </mat-table>
+
+                <div class="especilidades-custom-container">
+                    <span>Si no encontro su especialidad en el listado de especialidades puede cargar una nueva</span>
+                    <mat-form-field appearance="fill">
+                        <mat-label>Nueva Especialidad</mat-label>
+                        <input matInput type="text" [(ngModel)]="especialidadNueva">
+                        <button mat-button *ngIf="especialidadNueva" matSuffix mat-icon-button aria-label="Clear" (click)="agregarNuevaEspecialidad()">
+                            <mat-icon>check</mat-icon>
+                        </button>
+                    </mat-form-field>
+                </div>
             </div>
         </div>
     </div>

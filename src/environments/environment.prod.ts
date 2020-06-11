@@ -1,13 +1,13 @@
 export const environment = {
   production: true,
   firebase: {
-    apiKey: 'AIzaSyDM-dCQ-ammF6hUYpkV0Ad6by2-M5yyD48',
-    authDomain: 'tp-saladejuegosdamianjorda.firebaseapp.com',
-    databaseURL: 'https://tp-saladejuegosdamianjorda.firebaseio.com',
-    projectId: 'tp-saladejuegosdamianjorda',
-    storageBucket: 'tp-saladejuegosdamianjorda.appspot.com',
-    messagingSenderId: '24636219952',
-    appId: '1:24636219952:web:61ea89cfd803190a2283f5',
-    measurementId: 'G-25YM8TN42J'
+    apiKey: "AIzaSyDwiwsjf2YUS-KYZhmAMvSziBI8opQigIo",
+    authDomain: "clinica-tp.firebaseapp.com",
+    databaseURL: "https://clinica-tp.firebaseio.com",
+    projectId: "clinica-tp",
+    storageBucket: "clinica-tp.appspot.com",
+    messagingSenderId: "904745240603",
+    appId: "1:904745240603:web:bde3a33c3176936a6210be",
+    measurementId: "G-KNXRFN57JY"
   }
 };

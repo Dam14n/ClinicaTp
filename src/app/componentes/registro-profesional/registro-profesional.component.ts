@@ -1,16 +1,7 @@
-import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
-
-export interface Especialidad {
-  id: number;
-  nombre: string;
-}
-
-const ESPECIALIDADES: Especialidad[] = [
-  { id: 1, nombre: 'Hydrogen' },
-  { id: 2, nombre: 'Helium' },
-  { id: 3, nombre: 'Lithium' }
-];
+import { Especialidad } from 'src/app/clases/especialidad';
+import { EspecialidadService } from 'src/app/servicios/especialidad.service';
 
 @Component({
   selector: 'app-registro-profesional',
@@ -20,15 +11,17 @@ const ESPECIALIDADES: Especialidad[] = [
 export class RegistroProfesionalComponent implements OnInit {
   displayedColumns: string[] = ['nombre', 'quitar'];
   especialidadesForm = new FormControl();
-  especialidades: Especialidad[] = ESPECIALIDADES;
+  especialidades: Especialidad[];
   especialidadesElegidas: Array<Especialidad>;
   selectSelections: any[];
+  especialidadNueva: string;
 
-  constructor() {
+  constructor(private especialidadService: EspecialidadService) {
   }
 
   ngOnInit() {
     this.especialidadesElegidas = new Array<Especialidad>();
+    this.especialidadService.obtenerEspecialidades().subscribe(espec => this.especialidades = espec);
   }
 
   onSeleccionarEspecialidad(especialidad: Especialidad) {
@@ -41,7 +34,7 @@ export class RegistroProfesionalComponent implements OnInit {
     this.especialidadesElegidas = new Array<Especialidad>(...this.especialidadesElegidas);
   }
 
-  onQuitarEspecialidad(especialidad: Especialidad){
+  onQuitarEspecialidad(especialidad: Especialidad) {
     const indexSelect = this.selectSelections.indexOf(especialidad.nombre);
     this.selectSelections.splice(indexSelect, 1);
     this.selectSelections = new Array<any>(...this.selectSelections);
@@ -49,6 +42,12 @@ export class RegistroProfesionalComponent implements OnInit {
     const index = this.especialidadesElegidas.indexOf(especialidad);
     this.especialidadesElegidas.splice(index, 1);
     this.especialidadesElegidas = new Array<Especialidad>(...this.especialidadesElegidas);
+  }
+
+  agregarNuevaEspecialidad = () => {
+    const especialidadNuev: Especialidad = { id: undefined, nombre: this.especialidadNueva };
+    this.especialidadService.guardarEspecialidad(especialidadNuev);
+    this.especialidadNueva = '';
   }
 
 }
