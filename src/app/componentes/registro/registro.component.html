@@ -6,10 +6,10 @@
         <form [formGroup]="signUpForm" class="form-signin">
           <div class="flex-container">
             <mat-form-field appearance="fill">
-              <mat-label>Ingrese un usuario</mat-label>
-              <input matInput placeholder="Usuario" [formControl]="signUpForm.controls.usuario" required>
-              <mat-error *ngIf="signUpForm.controls.usuario.invalid">
-                Por favor inserte un usuario!!
+              <mat-label>Ingrese un nombre de usuario</mat-label>
+              <input matInput placeholder="Nombre de usuario" [formControl]="signUpForm.controls.nombre" required>
+              <mat-error *ngIf="signUpForm.controls.nombre.invalid">
+                Por favor inserte un nombre de usuario!!
               </mat-error>
             </mat-form-field>
             <mat-form-field  appearance="fill">

@@ -5,6 +5,10 @@ import { ErrorStateMatcher } from '@angular/material/core';
 import { Router } from '@angular/router';
 import { TipoUsuario } from 'src/app/enum/tipo-usuario.enum';
 import { AuthService } from 'src/app/servicios/auth.service';
+import { Usuario } from 'src/app/clases/usuario';
+import { Paciente } from 'src/app/clases/paciente';
+import { Admin } from 'src/app/clases/admin';
+import { Profesional } from 'src/app/clases/profesional';
 
 export class MyErrorStateMatcher implements ErrorStateMatcher {
 	isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
@@ -34,7 +38,7 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
 export class RegistroComponent implements OnInit {
 	@Input() showAdmin = false;
 	signUpForm = new FormGroup({
-		usuario: new FormControl('', Validators.required),
+		nombre: new FormControl('', Validators.required),
 		clave: new FormControl('', Validators.required),
 		confirmarClave: new FormControl('', Validators.required),
 		email: new FormControl('', [Validators.required, Validators.email]),
@@ -70,9 +74,40 @@ export class RegistroComponent implements OnInit {
 	}
 
 	registrarUsuario() {
-		const usuario = this.signUpForm.controls.usuario.value;
-		const clave = this.signUpForm.controls.clave.value;
-		this.authService.registrarUsuario(usuario, clave);
+		let usuario: Usuario;
+		switch (this.tipoUsuario) {
+			case this.tiposUsuario.ADMIN:
+				usuario = (usuario as Admin) = {
+					id: undefined,
+					nombre: this.signUpForm.controls.nombre.value,
+					clave: this.signUpForm.controls.clave.value,
+					email: this.signUpForm.controls.email.value,
+					tipo: this.tiposUsuario.ADMIN
+				}
+				break;
+			case this.tiposUsuario.PACIENTE:
+				usuario = (usuario as Paciente) = {
+					id: undefined,
+					nombre: this.signUpForm.controls.nombre.value,
+					clave: this.signUpForm.controls.clave.value,
+					email: this.signUpForm.controls.email.value,
+					imagen1: this.signUpForm.controls.imagen1.value,
+					imagen2: this.signUpForm.controls.imagen2.value,
+					tipo: this.tiposUsuario.PACIENTE
+				}
+				break;
+			case this.tiposUsuario.PROFESIONAL:
+				usuario = (usuario as Profesional) = {
+					id: undefined,
+					nombre: this.signUpForm.controls.nombre.value,
+					clave: this.signUpForm.controls.clave.value,
+					email: this.signUpForm.controls.email.value,
+					especialidades: this.signUpForm.controls.especialidades.value,
+					tipo: this.tiposUsuario.PROFESIONAL
+				}
+				break;
+		}
+		this.authService.registrarUsuario(usuario);
 		this.router.navigate(['']);
 	}
 
@@ -82,23 +117,30 @@ export class RegistroComponent implements OnInit {
 				this.esRegistroPaciente = false;
 				this.esRegistroProfesional = false;
 				this.esRegistroAdmin = true;
+				this.tipoUsuario = this.tiposUsuario.ADMIN;
 				break;
 			case this.tiposUsuario.PACIENTE:
 				this.esRegistroPaciente = true;
 				this.esRegistroProfesional = false;
 				this.esRegistroAdmin = false;
+				this.tipoUsuario = this.tiposUsuario.PACIENTE;
 				break;
 			case this.tiposUsuario.PROFESIONAL:
 				this.esRegistroPaciente = false;
 				this.esRegistroProfesional = true;
 				this.esRegistroAdmin = false;
+				this.tipoUsuario = this.tiposUsuario.PROFESIONAL;
 				break;
 			default:
 				this.esRegistroPaciente = false;
 				this.esRegistroProfesional = false;
 				this.esRegistroAdmin = false;
+				this.tipoUsuario = undefined;
 				break;
 		}
+		delete this.signUpForm.controls.especialidades;
+		delete this.signUpForm.controls.imagen1;
+		delete this.signUpForm.controls.imagen2;
 	}
 
 }

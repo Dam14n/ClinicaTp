@@ -1,6 +1,9 @@
-export class Usuario {
+import { TipoUsuario } from '../enum/tipo-usuario.enum';
 
-    constructor(public usuario: string, public clave: string) {
-    }
-
+export interface Usuario {
+    id: number,
+    nombre: string,
+    email: string,
+    clave: string,
+    tipo: TipoUsuario
 }
