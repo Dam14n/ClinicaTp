@@ -9,6 +9,7 @@ import { ErrorComponent } from './componentes/error/error.component';
 import { LoginComponent } from './componentes/login/login.component';
 import { MenuComponent } from './componentes/menu/menu.component';
 import { RegistroAdminComponent } from './componentes/registro-admin/registro-admin.component';
+import { RegistroMasMenuComponent } from './componentes/registro-mas-menu/registro-mas-menu.component';
 import { RegistroPacienteComponent } from './componentes/registro-paciente/registro-paciente.component';
 import { RegistroProfesionalComponent } from './componentes/registro-profesional/registro-profesional.component';
 import { RegistroComponent } from './componentes/registro/registro.component';
@@ -33,7 +34,8 @@ import { ExcludeFilterPipe } from './pipe/exclude-filter.pipe';
     RegistroPacienteComponent,
     RegistroProfesionalComponent,
     MenuComponent,
-    BienvenidoComponent
+    BienvenidoComponent,
+    RegistroMasMenuComponent
   ],
   imports: [
     BrowserModule,

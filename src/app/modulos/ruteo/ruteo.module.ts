@@ -6,11 +6,15 @@ import { AuthGuardService } from 'src/app/servicios/auth-guard.service';
 import { ErrorComponent } from '../../componentes/error/error.component';
 import { LoginComponent } from '../../componentes/login/login.component';
 import { RegistroComponent } from '../../componentes/registro/registro.component';
+import { RegistroMasMenuComponent } from 'src/app/componentes/registro-mas-menu/registro-mas-menu.component';
 
 const MiRuteo = [
   { path: '', component: LoginComponent, pathMatch: 'full' },
   { path: 'Login', component: LoginComponent },
-  { path: 'Registro', component: RegistroComponent },
+  { path: 'Registro', children: [
+    { path: '', component: RegistroComponent },
+    { path: 'Admin', component: RegistroMasMenuComponent, canActivate: [AuthGuardService] },
+  ] },  
   { path: 'Bienvenido', component: BienvenidoComponent, canActivate: [AuthGuardService] },
   { path: '**', redirectTo: 'Login' },
   { path: 'error', component: ErrorComponent }
