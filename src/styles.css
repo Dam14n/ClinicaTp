@@ -1,8 +1,9 @@
+/* https://github.com/mattlewis92/angular-calendar#getting-started */
+@import "../node_modules/angular-calendar/css/angular-calendar.css";
+
 /* You can add global styles to this file, and also import other style files */
 
 .cdk-overlay-pane {
     transform: none !important;
 }
 
-/* https://github.com/mattlewis92/angular-calendar#getting-started */
-@import "../node_modules/angular-calendar/css/angular-calendar.css";
