@@ -12,7 +12,10 @@
                 <a class="nav-link" *ngIf="this.puedeNavegar('Registro/Admin')" [routerLink]="['/Registro/Admin']">Registrar usuario<span class="sr-only">(current)</span></a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" *ngIf="this.puedeNavegar('Link')" [routerLink]="['/Link']">Link</a>
+                <a class="nav-link" *ngIf="this.puedeNavegar('Turnos')" [routerLink]="['/Turnos']">Ver Turnos</a>
+            </li>            
+            <li class="nav-item">
+                <a class="nav-link" *ngIf="this.puedeNavegar('Turnos/Cargar')" [routerLink]="['/Turnos/Cargar']">Cargar Turno</a>
             </li>
         </ul>
         <div class="form-inline my-2 my-lg-0">

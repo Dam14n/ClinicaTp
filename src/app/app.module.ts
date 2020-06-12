@@ -18,6 +18,8 @@ import { AngularMaterialModule } from './modulos/angular-material/angular-materi
 import { RuteoModule } from './modulos/ruteo/ruteo.module';
 import { EnumToArrayPipe } from './pipe/enum-to-array.pipe';
 import { ExcludeFilterPipe } from './pipe/exclude-filter.pipe';
+import { VerTurnosComponent } from './componentes/ver-turnos/ver-turnos.component';
+import { CargarTurnosComponent } from './componentes/cargar-turnos/cargar-turnos.component';
 
 
 
@@ -35,7 +37,9 @@ import { ExcludeFilterPipe } from './pipe/exclude-filter.pipe';
     RegistroProfesionalComponent,
     MenuComponent,
     BienvenidoComponent,
-    RegistroMasMenuComponent
+    RegistroMasMenuComponent,
+    VerTurnosComponent,
+    CargarTurnosComponent
   ],
   imports: [
     BrowserModule,
