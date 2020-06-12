@@ -20,6 +20,7 @@ import { EnumToArrayPipe } from './pipe/enum-to-array.pipe';
 import { ExcludeFilterPipe } from './pipe/exclude-filter.pipe';
 import { VerTurnosComponent } from './componentes/ver-turnos/ver-turnos.component';
 import { CargarTurnosComponent } from './componentes/cargar-turnos/cargar-turnos.component';
+import { VerUsuariosComponent } from './componentes/ver-usuarios/ver-usuarios.component';
 
 
 
@@ -39,7 +40,8 @@ import { CargarTurnosComponent } from './componentes/cargar-turnos/cargar-turnos
     BienvenidoComponent,
     RegistroMasMenuComponent,
     VerTurnosComponent,
-    CargarTurnosComponent
+    CargarTurnosComponent,
+    VerUsuariosComponent
   ],
   imports: [
     BrowserModule,
