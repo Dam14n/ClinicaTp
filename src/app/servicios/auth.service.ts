@@ -8,7 +8,6 @@ import { map } from 'rxjs/operators';
   providedIn: 'root'
 })
 export class AuthService {
-
   usuariosCollectionRef: AngularFirestoreCollection<Usuario>;
   usuarios: Observable<Usuario[]>;
 
@@ -27,6 +26,8 @@ export class AuthService {
     const usuario = localStorage.getItem('clinicaCredentials');
     return usuario !== null && usuario !== undefined;
   }
+
+  public obtenerUsuarios = () => this.usuarios;
 
   public login(nombre: string, clave: string, onLogin: Function, onLoginError: Function) {
     this.usuarios.subscribe(usuarios => {
@@ -53,4 +54,9 @@ export class AuthService {
   public obtenerUsuarioActual(): Usuario {
     return JSON.parse(localStorage.getItem('clinicaCredentials'));
   }
+
+  public aprobarUsuario(usuario: Usuario) {
+    this.usuariosCollectionRef.doc(usuario.id).set(usuario);
+  }
+
 }

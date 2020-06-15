@@ -82,7 +82,8 @@ export class RegistroComponent implements OnInit {
 					nombre: this.signUpForm.controls.nombre.value,
 					clave: this.signUpForm.controls.clave.value,
 					email: this.signUpForm.controls.email.value,
-					tipo: this.tiposUsuario.ADMIN
+					tipo: this.tiposUsuario.ADMIN,
+					estaAprobado: true
 				}
 				break;
 			case this.tiposUsuario.PACIENTE:
@@ -93,7 +94,8 @@ export class RegistroComponent implements OnInit {
 					email: this.signUpForm.controls.email.value,
 					imagen1: this.signUpForm.controls.imagen1.value,
 					imagen2: this.signUpForm.controls.imagen2.value,
-					tipo: this.tiposUsuario.PACIENTE
+					tipo: this.tiposUsuario.PACIENTE,
+					estaAprobado: true
 				}
 				break;
 			case this.tiposUsuario.PROFESIONAL:
@@ -103,7 +105,8 @@ export class RegistroComponent implements OnInit {
 					clave: this.signUpForm.controls.clave.value,
 					email: this.signUpForm.controls.email.value,
 					especialidades: this.signUpForm.controls.especialidades.value,
-					tipo: this.tiposUsuario.PROFESIONAL
+					tipo: this.tiposUsuario.PROFESIONAL,
+					estaAprobado: false
 				}
 				break;
 		}
