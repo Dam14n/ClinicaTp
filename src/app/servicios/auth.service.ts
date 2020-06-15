@@ -42,7 +42,7 @@ export class AuthService {
     }
     return query.get().then(
       querySnapshots => querySnapshots.docs.map<Usuario>(user => {
-        return { ...user.data() } as Usuario
+        return { id: user.id, ...user.data() } as Usuario
       }));
   }
 
