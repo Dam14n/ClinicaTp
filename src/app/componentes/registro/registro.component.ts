@@ -1,14 +1,15 @@
-import { transition, trigger, style, animate } from '@angular/animations';
+import { animate, style, transition, trigger } from '@angular/animations';
 import { Component, Input, OnInit } from '@angular/core';
 import { FormControl, FormGroup, FormGroupDirective, NgForm, Validators } from '@angular/forms';
 import { ErrorStateMatcher } from '@angular/material/core';
 import { Router } from '@angular/router';
+import { firestore } from 'firebase';
+import { Admin } from 'src/app/clases/admin';
+import { Paciente } from 'src/app/clases/paciente';
+import { Profesional } from 'src/app/clases/profesional';
+import { Usuario } from 'src/app/clases/usuario';
 import { TipoUsuario } from 'src/app/enum/tipo-usuario.enum';
 import { AuthService } from 'src/app/servicios/auth.service';
-import { Usuario } from 'src/app/clases/usuario';
-import { Paciente } from 'src/app/clases/paciente';
-import { Admin } from 'src/app/clases/admin';
-import { Profesional } from 'src/app/clases/profesional';
 
 export class MyErrorStateMatcher implements ErrorStateMatcher {
 	isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
@@ -83,7 +84,8 @@ export class RegistroComponent implements OnInit {
 					clave: this.signUpForm.controls.clave.value,
 					email: this.signUpForm.controls.email.value,
 					tipo: this.tiposUsuario.ADMIN,
-					estaAprobado: true
+					estaAprobado: true,
+					creation: firestore.Timestamp.now()
 				}
 				break;
 			case this.tiposUsuario.PACIENTE:
@@ -95,7 +97,8 @@ export class RegistroComponent implements OnInit {
 					imagen1: this.signUpForm.controls.imagen1.value,
 					imagen2: this.signUpForm.controls.imagen2.value,
 					tipo: this.tiposUsuario.PACIENTE,
-					estaAprobado: true
+					estaAprobado: true,
+					creation: firestore.Timestamp.now()
 				}
 				break;
 			case this.tiposUsuario.PROFESIONAL:
@@ -106,7 +109,8 @@ export class RegistroComponent implements OnInit {
 					email: this.signUpForm.controls.email.value,
 					especialidades: this.signUpForm.controls.especialidades.value,
 					tipo: this.tiposUsuario.PROFESIONAL,
-					estaAprobado: false
+					estaAprobado: false,
+					creation: firestore.Timestamp.now()
 				}
 				break;
 		}

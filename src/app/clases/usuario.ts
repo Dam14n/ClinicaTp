@@ -1,3 +1,4 @@
+import { firestore } from 'firebase';
 import { TipoUsuario } from '../enum/tipo-usuario.enum';
 
 export interface Usuario {
@@ -6,5 +7,6 @@ export interface Usuario {
     email: string,
     clave: string,
     tipo: TipoUsuario,
-    estaAprobado: boolean
+    estaAprobado: boolean,
+    creation: firestore.Timestamp
 }

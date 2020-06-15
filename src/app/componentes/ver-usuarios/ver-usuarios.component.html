@@ -1,5 +1,4 @@
 <app-menu></app-menu>
-
 <mat-table [dataSource]="usuarios" class="mat-elevation-z8">
     <ng-container matColumnDef="nombre">
         <mat-header-cell *matHeaderCellDef> Nombre </mat-header-cell>
@@ -22,3 +21,4 @@
     <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
     <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
 </mat-table>
+<mat-paginator showFirstLastButtons (page)="onPageChange($event)"></mat-paginator>
