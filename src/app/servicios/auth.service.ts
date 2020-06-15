@@ -31,7 +31,7 @@ export class AuthService {
 
   public login(nombre: string, clave: string, onLogin: Function, onLoginError: Function) {
     this.usuarios.subscribe(usuarios => {
-      const user = usuarios.find(unUsuario => unUsuario.nombre === nombre && unUsuario.clave === clave);
+      const user = usuarios.find(unUsuario => unUsuario.nombre === nombre && unUsuario.clave === clave && unUsuario.estaAprobado);
       if (user) {
         localStorage.setItem('clinicaCredentials', JSON.stringify(user));
         onLogin();
@@ -47,6 +47,7 @@ export class AuthService {
 
   public registrarUsuario(usuario: Usuario) {
     delete usuario.id;
+    this.usuariosCollectionRef.ref.
     this.usuariosCollectionRef.add({ ...usuario });
   }
 
