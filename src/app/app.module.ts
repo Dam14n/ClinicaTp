@@ -24,6 +24,7 @@ import { RuteoModule } from './modulos/ruteo/ruteo.module';
 import { EnumToArrayPipe } from './pipe/enum-to-array.pipe';
 import { ExcludeFilterPipe } from './pipe/exclude-filter.pipe';
 import { NgbModalModule } from '@ng-bootstrap/ng-bootstrap';
+import { ConfiguracionProfesionalComponent } from './componentes/configuracion-profesional/configuracion-profesional.component';
 
 @NgModule({
   declarations: [
@@ -41,7 +42,8 @@ import { NgbModalModule } from '@ng-bootstrap/ng-bootstrap';
     RegistroMasMenuComponent,
     VerTurnosComponent,
     CargarTurnosComponent,
-    VerUsuariosComponent
+    VerUsuariosComponent,
+    ConfiguracionProfesionalComponent
   ],
   imports: [
     BrowserModule,
