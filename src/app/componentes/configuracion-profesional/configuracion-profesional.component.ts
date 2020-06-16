@@ -11,16 +11,15 @@ import { DAYS_OF_WEEK } from 'angular-calendar';
   styleUrls: ['./configuracion-profesional.component.css']
 })
 export class ConfiguracionProfesionalComponent implements OnInit {
-  signUpForm = new FormGroup({
+  updateForm = new FormGroup({
     desde: new FormControl('', Validators.required),
     hasta: new FormControl('', Validators.required),
     dias: new FormControl('', Validators.required)
   });
   selectSelections: Array<DAYS_OF_WEEK>;
   especialidadesForm;
-  diasDeLaSemana = ['Lunes','Martes','Miercoles','Jueves','Viernes'];
-
-  onSeleccionarEspecialidad = () => { }
+  diasDeLaSemana = ['Lunes', 'Martes', 'Miercoles', 'Jueves', 'Viernes'];
+  usuario: Profesional;
 
   constructor(
     private authService: AuthService,
@@ -28,6 +27,11 @@ export class ConfiguracionProfesionalComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.usuario = this.authService.obtenerUsuarioActual() as Profesional;
+    this.updateForm.controls.desde.setValue(this.usuario.desde);
+    this.updateForm.controls.hasta.setValue(this.usuario.hasta);
+    this.updateForm.controls.dias.setValue(this.usuario.dias);
+    this.selectSelections = this.usuario.dias || [];
   }
 
   cancelar() {
@@ -35,11 +39,10 @@ export class ConfiguracionProfesionalComponent implements OnInit {
   }
 
   actualizarDatos = () => {
-    let usuario = this.authService.obtenerUsuarioActual() as Profesional;
-    usuario.desde = this.signUpForm.controls.desde.value;
-    usuario.hasta = this.signUpForm.controls.hasta.value;
-    usuario.dias = this.signUpForm.controls.dias.value;
-    this.authService.aprobarUsuario(usuario);
+    this.usuario.desde = this.updateForm.controls.desde.value;
+    this.usuario.hasta = this.updateForm.controls.hasta.value;
+    this.usuario.dias = this.updateForm.controls.dias.value;
+    this.authService.aprobarUsuario(this.usuario);
   }
 
 }

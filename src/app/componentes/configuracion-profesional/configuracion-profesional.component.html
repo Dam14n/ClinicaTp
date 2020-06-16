@@ -5,47 +5,46 @@
         <div class="card card-signin flex-row my-5">
             <div class="card-body">
                 <h5 class="card-title text-center">Configuracion</h5>
-                <form [formGroup]="signUpForm" class="form-signin">
+                <form [formGroup]="updateForm" class="form-signin">
                     <div class="flex-container">
                         <mat-form-field appearance="fill">
                             <mat-label>Ingrese un horario desde:</mat-label>
-                            <input matInput placeholder="Horario desde" [formControl]="signUpForm.controls.desde"
+                            <input matInput placeholder="Horario desde" [formControl]="updateForm.controls.desde"
                                 required type="time">
-                            <mat-error *ngIf="signUpForm.controls.desde.invalid">
+                            <mat-error *ngIf="updateForm.controls.desde.invalid">
                                 Por favor inserte un horario desde!!
                             </mat-error>
                         </mat-form-field>
                         <mat-form-field appearance="fill">
                             <mat-label>Ingrese un horario hasta:</mat-label>
-                            <input matInput placeholder="Horario hasta" [formControl]="signUpForm.controls.hasta"
+                            <input matInput placeholder="Horario hasta" [formControl]="updateForm.controls.hasta"
                                 required type="time">
-                            <mat-error *ngIf="signUpForm.controls.hasta.invalid">
+                            <mat-error *ngIf="updateForm.controls.hasta.invalid">
                                 Por favor inserte un horario hasta!!
                             </mat-error>
                         </mat-form-field>
 
                         <mat-form-field appearance="fill">
                             <mat-label>DIAS DE LA SEMANA</mat-label>
-                            <mat-select [formControl]="signUpForm.controls.dias" multiple
+                            <mat-select [formControl]="updateForm.controls.dias" multiple
                                 [(ngModel)]="selectSelections">
                                 <mat-select-trigger>
-                                    {{signUpForm.controls.dias.value ? signUpForm.controls.dias.value[0] : ''}}
-                                    <span *ngIf="signUpForm.controls.dias.value?.length > 1"
+                                    {{updateForm.controls.dias.value ? updateForm.controls.dias.value[0] : ''}}
+                                    <span *ngIf="updateForm.controls.dias.value?.length > 1"
                                         class="example-additional-selection">
-                                        (+{{signUpForm.controls.dias.value.length - 1}}
-                                        {{signUpForm.controls.dias.value?.length === 2 ? 'otra' : 'otras'}})
+                                        (+{{updateForm.controls.dias.value.length - 1}}
+                                        {{updateForm.controls.dias.value?.length === 2 ? 'otra' : 'otras'}})
                                     </span>
                                 </mat-select-trigger>
-                                <mat-option *ngFor="let dia of diasDeLaSemana" [value]="dia"
-                                    (click)="onSeleccionarEspecialidad(dia)">{{dia}}
+                                <mat-option *ngFor="let dia of diasDeLaSemana" [value]="dia">{{dia}}
                                 </mat-option>
                             </mat-select>
                         </mat-form-field>
                     </div>
                     <hr>
-                    <button [ngClass]="{'button-dissabled': signUpForm.invalid}"
+                    <button [ngClass]="{'button-dissabled': updateForm.invalid}"
                         class="btn btn-lg btn-primary btn-block text-uppercase" (click)=actualizarDatos()
-                        [disabled]="signUpForm.invalid">ACTUALIZAR</button>
+                        [disabled]="updateForm.invalid">ACTUALIZAR</button>
                 </form>
             </div>
         </div>

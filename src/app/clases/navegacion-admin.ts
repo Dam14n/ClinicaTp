@@ -1,5 +1,8 @@
 import { Navegacion } from './navegacion';
 
 export class NavegacionAdmin implements Navegacion{
-    puedeNavegar = (link: string) => true;
+    puedeNavegarA: Array<string> = ['Configuracion'];
+
+    puedeNavegar = (link: string) => !this.puedeNavegarA.some( l => l === link);
+
 }

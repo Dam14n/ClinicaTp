@@ -25,8 +25,12 @@ export class AuthService {
   }
 
   public isAuthenticated(): boolean {
-    const usuario = localStorage.getItem('clinicaCredentials');
-    return usuario !== null && usuario !== undefined;
+    const usuario = JSON.parse(localStorage.getItem('clinicaCredentials')) as Usuario;
+    const isAuthenticated = usuario !== null && usuario !== undefined;
+    if (isAuthenticated) {
+      this.login(usuario.nombre, usuario.clave, () => { }, () => { });
+    }
+    return isAuthenticated;
   }
 
   public obtenerTotalUsuarios = () =>

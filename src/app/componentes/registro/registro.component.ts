@@ -111,9 +111,9 @@ export class RegistroComponent implements OnInit {
 					tipo: this.tiposUsuario.PROFESIONAL,
 					estaAprobado: false,
 					creation: firestore.Timestamp.now(),
-					desde: undefined,
-					dias: undefined,
-					hasta: undefined
+					desde: null,
+					dias: null,
+					hasta: null
 				}
 				break;
 		}
