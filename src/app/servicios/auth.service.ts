@@ -4,6 +4,7 @@ import { PageEvent } from '@angular/material/paginator';
 import { firestore } from 'firebase';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { Profesional } from '../clases/profesional';
 import { Usuario } from '../clases/usuario';
 
 @Injectable({
@@ -84,6 +85,15 @@ export class AuthService {
 
   public aprobarUsuario(usuario: Usuario) {
     this.usuariosCollectionRef.doc(usuario.id).set(usuario);
+  }
+
+  public obtenerProfesionalesAprobados = () => {
+    return this.usuariosCollectionRef.ref
+      .where('tipo', '==', 2)
+      .where('estaAprobado', '==', true).get().then(
+        querySnapshots => querySnapshots.docs.map<Profesional>(user => {
+          return { id: user.id, ...user.data() } as Profesional
+        }));
   }
 
 }

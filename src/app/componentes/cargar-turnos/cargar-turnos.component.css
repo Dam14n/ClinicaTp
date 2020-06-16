@@ -1,0 +1,22 @@
+.flex-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.button-dissabled {
+  cursor: not-allowed;
+}
+
+.main-container {
+  display: flex;
+  flex-direction: row;
+}
+
+.register-container {
+  width: 25%;
+  margin: auto;
+}
+
+.user-type-container {
+  width: 35%;
+}

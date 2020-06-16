@@ -1,14 +1,14 @@
-import { Profesional } from './profesional';
-import { Paciente } from './paciente';
 import { firestore } from 'firebase';
+import { Profesional } from './profesional';
+import { Usuario } from './usuario';
 
 export interface Turno {
     id: string,
     profesional: Profesional,
-    paciente: Paciente,
+    paciente: Usuario,
     creacion: firestore.Timestamp,
-    actualizado: firestore.Timestamp,
+    fechaTurno: firestore.Timestamp,
     comentarioPaciente: string,
     encuesta: string,
-    comentarioProfesional: string    
+    comentarioProfesional: string
 }
