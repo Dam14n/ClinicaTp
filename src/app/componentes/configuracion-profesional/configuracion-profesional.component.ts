@@ -43,6 +43,7 @@ export class ConfiguracionProfesionalComponent implements OnInit {
     this.usuario.hasta = this.updateForm.controls.hasta.value;
     this.usuario.dias = this.updateForm.controls.dias.value;
     this.authService.aprobarUsuario(this.usuario);
+    this.router.navigate(['Bienvenido']);
   }
 
 }
