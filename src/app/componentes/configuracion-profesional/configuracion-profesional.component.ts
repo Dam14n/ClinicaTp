@@ -14,7 +14,8 @@ export class ConfiguracionProfesionalComponent implements OnInit {
   updateForm = new FormGroup({
     desde: new FormControl('', Validators.required),
     hasta: new FormControl('', Validators.required),
-    dias: new FormControl('', Validators.required)
+    dias: new FormControl('', Validators.required),
+    duracion: new FormControl('', Validators.required), 
   });
   selectSelections: Array<DIAS_DE_LA_SEMANA>;
   especialidadesForm;
@@ -31,6 +32,7 @@ export class ConfiguracionProfesionalComponent implements OnInit {
     this.updateForm.controls.desde.setValue(this.usuario.desde);
     this.updateForm.controls.hasta.setValue(this.usuario.hasta);
     this.updateForm.controls.dias.setValue(this.usuario.dias);
+    this.updateForm.controls.duracion.setValue(this.usuario.duracion);
     this.selectSelections = this.usuario.dias || [];
   }
 
@@ -42,6 +44,7 @@ export class ConfiguracionProfesionalComponent implements OnInit {
     this.usuario.desde = this.updateForm.controls.desde.value;
     this.usuario.hasta = this.updateForm.controls.hasta.value;
     this.usuario.dias = this.updateForm.controls.dias.value;
+    this.usuario.duracion = this.updateForm.controls.duracion.value;
     this.authService.actualizarUsuario(this.usuario);
     this.router.navigate(['Bienvenido']);
   }
