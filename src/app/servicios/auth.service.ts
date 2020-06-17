@@ -6,6 +6,7 @@ import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { Profesional } from '../clases/profesional';
 import { Usuario } from '../clases/usuario';
+import { Especialidad } from '../clases/especialidad';
 
 @Injectable({
   providedIn: 'root'
@@ -88,10 +89,12 @@ export class AuthService {
     this.usuariosCollectionRef.doc(usuario.id).set(usuario);
   }
 
-  public obtenerProfesionalesAprobados = () => {
+  public obtenerProfesionalesAprobadosPorEspecialidad = (especialidad: Especialidad) => {
     return this.usuariosCollectionRef.ref
       .where('tipo', '==', 2)
-      .where('estaAprobado', '==', true).get().then(
+      .where('estaAprobado', '==', true)
+      .where('especialidades', 'array-contains', especialidad.nombre)
+      .get().then(
         querySnapshots => querySnapshots.docs.map<Profesional>(user => {
           return { id: user.id, ...user.data() } as Profesional
         }));

@@ -52,6 +52,6 @@ export class CargarTurnosComponent implements OnInit {
   }
 
   onSeleccionarEspecialidad = () => {
-    this.authService.obtenerProfesionalesAprobados().then(profesionales => this.profesionales = profesionales);
+    this.authService.obtenerProfesionalesAprobadosPorEspecialidad(this.turnoForm.controls.especialidad.value).then(profesionales => this.profesionales = profesionales);
   }
 }

@@ -17,7 +17,7 @@
                         <mat-form-field>
                             <mat-label>Especialidad</mat-label>
                             <mat-select formControlName="especialidad" (selectionChange)="onSeleccionarEspecialidad()">
-                                <mat-option *ngFor="let especialidad of especialidades" [value]="especialidad.nombre">
+                                <mat-option *ngFor="let especialidad of especialidades" [value]="especialidad">
                                     {{especialidad.nombre}}
                                 </mat-option>
                             </mat-select>
