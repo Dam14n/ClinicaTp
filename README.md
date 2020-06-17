@@ -1,27 +1,24 @@
 # Clinica
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 9.1.6.
+Este es un trabajo practico para la UTN-FRA el cual consiste en generar una atencion para un consultorio. En donde van a existir 3 tipos de usuarios: ADMINISTRADORES, PACIENTES Y PROFESIONALES.
 
-## Development server
+## Usuarios
+ADMINISTRADOR: tiene acceso a todas las funciones del sistema y ademas puede ser un paciente pero no puede atender
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+PACIENTE: va a tener 2 imagenes en el momento de la alta
 
-## Code scaffolding
+PROFESIONAL: puede tener mas de 1 especialidad y va a tener que ser aprobado por un ADMINISTRADOR para poder recibir turnos. Ademas una vez aprobado va a tener que configurar sus horarios y dias de atencion.
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+## Turnos
+Segun el tipo de usuario que este logueado, el mismo va a poder ver solo los turnos que le pertencen a el mismo. Si es un profesional va a ver todos los turnos que puede confirmar o rechazar. Si es un paciente o administrador va a ver todos los turnos que realizo.
 
-## Build
+Todos los usuarios pueden cancelar un turno pero solamente el profesional puede confirmar uno.
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
+Cuando el turno se realiza, el profesional puede cargar datos extras del paciente y dar una breve resenia de la atencion.
 
-## Running unit tests
+De la misma forma luego de ser atendido el paciente puede hacer una devolucion para el profesional.
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
 
-## Running end-to-end tests
+## Development
 
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+Para correr la aplicacion solamente utilizar el comando ng-serve
