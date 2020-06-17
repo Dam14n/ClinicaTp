@@ -25,6 +25,7 @@ import { EnumToArrayPipe } from './pipe/enum-to-array.pipe';
 import { ExcludeFilterPipe } from './pipe/exclude-filter.pipe';
 import { NgbModalModule } from '@ng-bootstrap/ng-bootstrap';
 import { ConfiguracionProfesionalComponent } from './componentes/configuracion-profesional/configuracion-profesional.component';
+import { AtenderComponent } from './componentes/atender/atender.component';
 
 @NgModule({
   declarations: [
@@ -43,7 +44,8 @@ import { ConfiguracionProfesionalComponent } from './componentes/configuracion-p
     VerTurnosComponent,
     CargarTurnosComponent,
     VerUsuariosComponent,
-    ConfiguracionProfesionalComponent
+    ConfiguracionProfesionalComponent,
+    AtenderComponent
   ],
   imports: [
     BrowserModule,

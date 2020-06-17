@@ -11,6 +11,7 @@ import { AuthGuardService } from 'src/app/servicios/auth-guard.service';
 import { ErrorComponent } from '../../componentes/error/error.component';
 import { LoginComponent } from '../../componentes/login/login.component';
 import { RegistroComponent } from '../../componentes/registro/registro.component';
+import { AtenderComponent } from 'src/app/componentes/atender/atender.component';
 
 const MiRuteo = [
   { path: '', component: LoginComponent, pathMatch: 'full' },
@@ -28,8 +29,10 @@ const MiRuteo = [
       { path: 'Cargar', component: CargarTurnosComponent },
     ]
   },
+  { path: 'Atender/:turnoId', component: AtenderComponent, canActivate: [AuthGuardService] },
   { path: 'Usuarios', component: VerUsuariosComponent, canActivate: [AuthGuardService] },
   { path: 'Bienvenido', component: BienvenidoComponent, canActivate: [AuthGuardService] },
+
   { path: '**', redirectTo: 'Login' },
   { path: 'error', component: ErrorComponent }
 ];

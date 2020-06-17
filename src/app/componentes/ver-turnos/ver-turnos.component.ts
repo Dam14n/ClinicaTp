@@ -8,6 +8,7 @@ import { TurnoEstado } from 'src/app/clases/turno-estado.enum';
 import { AuthService } from 'src/app/servicios/auth.service';
 import { TurnoService } from 'src/app/servicios/turno.service';
 import { TipoUsuario } from 'src/app/enum/tipo-usuario.enum';
+import { Router } from '@angular/router';
 
 const colors: any = {
   red: {
@@ -42,7 +43,7 @@ export class VerTurnosComponent {
   activeDayIsOpen: boolean = true;
   estadosTurno = TurnoEstado;
 
-  constructor(private modal: NgbModal, private turnoService: TurnoService, private authService: AuthService) {
+  constructor(private modal: NgbModal, private turnoService: TurnoService, private authService: AuthService, private router: Router) {
     this.turnoService.obtenerTurnosParaUsuario(this.authService.obtenerUsuarioActual()).subscribe(turnos => this.cargarTurnos(turnos));
   }
 
@@ -111,6 +112,9 @@ export class VerTurnosComponent {
     closePopOver();
   }
 
-  atender = () => { }
+  atender = (turno: Turno, closePopOver: Function) => {
+    closePopOver();
+    this.router.navigate(['Atender', turno.id]);
+  }
 
 }

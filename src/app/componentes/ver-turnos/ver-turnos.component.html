@@ -73,7 +73,7 @@
         (click)="actualizarTurno(modalData.event, modalData.event.meta , estadosTurno.ACEPTADO, close)">CONFIRMAR</button>
       <button mat-raised-button color="primary"
         (click)="actualizarTurno(modalData.event, modalData.event.meta , estadosTurno.RECHAZADO, close)">RECHAZAR</button>
-      <button mat-raised-button color="primary" (click)="atender()">ATENDER</button>
+      <button mat-raised-button color="primary" (click)="atender(modalData.event.meta, close)">ATENDER</button>
     </div>
   </div>
   <div class="modal-footer">
@@ -107,7 +107,7 @@
     <div>
       <button mat-raised-button color="primary"
         (click)="actualizarTurno(modalData.event, modalData.event.meta , estadosTurno.RECHAZADO, close)">CANCELAR</button>
-        <button mat-raised-button color="primary"
+      <button mat-raised-button color="primary"
         (click)="actualizarTurno(modalData.event, modalData.event.meta , undefined, close)">COMPLETAR ENCUESTA</button>
     </div>
   </div>
