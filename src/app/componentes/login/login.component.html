@@ -40,7 +40,7 @@
           <input type="checkbox">Recordarme
         </div>
         <div class="form-group space-between">
-          <input type="submit" value="ADMIN" class="btn float-right login_btn" (click)="entrarComoAdmin()">
+          <input type="button" value="ADMIN" class="btn float-right login_btn" (click)="entrarComoAdmin()">
           <input [ngClass]="{'button-dissabled': loginForm.invalid}" type="submit" value="Login"
             class="btn float-right login_btn" (click)="entrar()" [disabled]="loginForm.invalid">
         </div>

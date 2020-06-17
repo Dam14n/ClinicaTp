@@ -1,11 +1,11 @@
 import { Component, TemplateRef, ViewChild } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { CalendarEvent, CalendarEventAction, CalendarView } from 'angular-calendar';
-import { addDays, addHours, endOfMonth, isSameDay, isSameMonth, startOfDay, subDays } from 'date-fns';
+import { CalendarEvent, CalendarView } from 'angular-calendar';
+import { addMinutes, isSameDay, isSameMonth } from 'date-fns';
 import { Subject } from 'rxjs';
-import { TurnoService } from 'src/app/servicios/turno.service';
-import { AuthService } from 'src/app/servicios/auth.service';
 import { Turno } from 'src/app/clases/turno';
+import { AuthService } from 'src/app/servicios/auth.service';
+import { TurnoService } from 'src/app/servicios/turno.service';
 
 const colors: any = {
   red: {
@@ -55,7 +55,7 @@ export class VerTurnosComponent {
       this.events.push({
         start: dia,
         title: 'Turno paciente ' + turno.paciente.nombre,
-        end: addHours(dia, 2),
+        end: addMinutes(dia, turno.profesional.duracion),
       });
     })
   }
