@@ -14,5 +14,5 @@ export interface Turno {
     encuesta?: string,
     comentarioProfesional?: string,
     estado: TurnoEstado,
-    informacionPaciente?: string
+    informacionExtra?: any
 }

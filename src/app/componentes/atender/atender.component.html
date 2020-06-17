@@ -1,1 +1,58 @@
-<p>atender works!</p>
+<div class="main-container">
+  <div class="register-container">
+    <div class="card card-signin flex-row my-5">
+      <div class="card-body">
+        <h5 class="card-title text-center">ATENCION PACIENTE</h5>
+        <form [formGroup]="turnoForm" class="form-signin">
+          <mat-form-field appearance="fill">
+            <mat-label>Motivo</mat-label>
+            <textarea matInput matTextareaAutosize formControlName="comentarioProfesional"></textarea>
+          </mat-form-field>
+          <hr>
+          INFORMACION EXTRA:
+          <button mat-button matSuffix mat-icon-button aria-label="Clear" (click)="agregarCampoNuevo = true">
+            <mat-icon>check</mat-icon>
+          </button>
+          <div *ngIf="agregarCampoNuevo" class="info-container"> 
+            <mat-form-field class="example-full-width">
+              <mat-label>Nombre</mat-label>
+              <input matInput placeholder="Ej Edad" value [(ngModel)]="campoNuevo.nombre" [ngModelOptions]="{standalone: true}">
+            </mat-form-field>
+            <mat-form-field class="example-full-width">
+              <mat-label>Valor</mat-label>
+              <input matInput placeholder="Ej 18 meses" value="" [(ngModel)]="campoNuevo.valor" [ngModelOptions]="{standalone: true}">
+            </mat-form-field>
+            <button mat-button matSuffix mat-icon-button aria-label="Clear" (click)="actualizarInformacionExtra()">
+              <mat-icon>check</mat-icon>
+            </button>
+          </div>
+          <mat-table *ngIf="informacionExtra.length" mat-table [dataSource]="informacionExtra"
+            class="mat-elevation-z8">
+            <ng-container matColumnDef="nombre">
+              <mat-header-cell *matHeaderCellDef> Nombre </mat-header-cell>
+              <mat-cell *matCellDef="let element"> {{element.nombre}} </mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="valor">
+              <mat-header-cell *matHeaderCellDef> Valor </mat-header-cell>
+              <mat-cell *matCellDef="let element"> {{element.valor}} </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="quitar">
+              <mat-header-cell *matHeaderCellDef> Quitar </mat-header-cell>
+              <mat-cell *matCellDef="let element"><img src="/assets/imagenes/close-icon.svg" height="20"
+                  alt="Borrar especialidad" (click)="onQuitarInfoExtra(element)"></mat-cell>
+            </ng-container>
+
+            <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+            <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+          </mat-table>
+          <hr>
+          <button [ngClass]="{'button-dissabled': turnoForm.invalid}"
+            class="btn btn-lg btn-primary btn-block text-uppercase" (click)=completarAtencion()
+            [disabled]="turnoForm.invalid">COMPLETAR ATENCION</button>
+          <button class="btn btn-lg btn-primary btn-block text-uppercase" (click)="cancelar()">Cancelar</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

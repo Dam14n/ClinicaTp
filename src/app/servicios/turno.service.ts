@@ -3,6 +3,7 @@ import { AngularFirestore } from '@angular/fire/firestore';
 import { Turno } from '../clases/turno';
 import { Usuario } from '../clases/usuario';
 import { TipoUsuario } from '../enum/tipo-usuario.enum';
+import { ActivatedRoute } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
@@ -27,6 +28,10 @@ export class TurnoService {
 
   actualizarTurno = (turno: Turno) => {
     this.firestore.collection('turnos').doc(turno.id).set(turno);
+  }
+
+  obtenerTurnoPorId = (id: string) => {
+    return this.firestore.collection<Turno>('turnos', ref => ref.where('id', '==', id)).valueChanges();
   }
 
 }

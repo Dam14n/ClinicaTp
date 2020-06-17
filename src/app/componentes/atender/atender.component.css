@@ -1,0 +1,37 @@
+.flex-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.button-dissabled {
+  cursor: not-allowed;
+}
+
+.main-container {
+  display: flex;
+  flex-direction: row;
+}
+
+.register-container {
+  width: 60%;
+  margin: auto;
+}
+
+.user-type-container {
+  width: 35%;
+}
+
+mat-form-field {
+  width: 100%;
+}
+img {
+  cursor: pointer;
+}
+
+.info-container {
+  display: flex;
+}
+
+.info-container mat-form-field {
+  margin: 5px;
+}
