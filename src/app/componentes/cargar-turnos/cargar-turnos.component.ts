@@ -8,6 +8,7 @@ import { Profesional } from 'src/app/clases/profesional';
 import { Turno } from 'src/app/clases/turno';
 import { TurnoService } from 'src/app/servicios/turno.service';
 import { firestore } from 'firebase';
+import { TurnoEstado } from 'src/app/clases/turno-estado.enum';
 
 @Component({
   selector: 'app-cargar-turnos',
@@ -23,6 +24,7 @@ export class CargarTurnosComponent implements OnInit {
   });
   especialidades: Especialidad[];
   profesionales: Profesional[];
+  turnoEstados = TurnoEstado;
 
   constructor(
     private router: Router,
@@ -45,7 +47,8 @@ export class CargarTurnosComponent implements OnInit {
       dia: firestore.Timestamp.fromDate(new Date(this.turnoForm.controls.dia.value)),
       horario: this.turnoForm.controls.horario.value,
       paciente: this.authService.obtenerUsuarioActual(),
-      profesional: this.turnoForm.controls.profesional.value
+      profesional: this.turnoForm.controls.profesional.value,
+      estado: this.turnoEstados.SIN_ESTADO
     };
     this.turnoService.pedirTurno(turno);
     this.router.navigate(['Bienvenido']);

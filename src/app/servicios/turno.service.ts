@@ -25,4 +25,8 @@ export class TurnoService {
       ref.where(tipo + '.id', '==', usuario.id))
       .valueChanges()
 
+  actualizarTurno = (turno: Turno) => {
+    this.firestore.collection('turnos').doc(turno.id).set(turno);
+  }
+
 }

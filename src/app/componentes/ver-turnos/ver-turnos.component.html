@@ -3,29 +3,15 @@
 <div class="row text-center">
   <div class="col-md-4">
     <div class="btn-group">
-      <div
-        class="btn btn-primary"
-        mwlCalendarPreviousView
-        [view]="view"
-        [(viewDate)]="viewDate"
-        (viewDateChange)="closeOpenMonthViewDay()"
-      >
+      <div class="btn btn-primary" mwlCalendarPreviousView [view]="view" [(viewDate)]="viewDate"
+        (viewDateChange)="closeOpenMonthViewDay()">
         Previous
       </div>
-      <div
-        class="btn btn-outline-secondary"
-        mwlCalendarToday
-        [(viewDate)]="viewDate"
-      >
+      <div class="btn btn-outline-secondary" mwlCalendarToday [(viewDate)]="viewDate">
         Today
       </div>
-      <div
-        class="btn btn-primary"
-        mwlCalendarNextView
-        [view]="view"
-        [(viewDate)]="viewDate"
-        (viewDateChange)="closeOpenMonthViewDay()"
-      >
+      <div class="btn btn-primary" mwlCalendarNextView [view]="view" [(viewDate)]="viewDate"
+        (viewDateChange)="closeOpenMonthViewDay()">
         Next
       </div>
     </div>
@@ -35,25 +21,13 @@
   </div>
   <div class="col-md-4">
     <div class="btn-group">
-      <div
-        class="btn btn-primary"
-        (click)="setView(CalendarView.Month)"
-        [class.active]="view === CalendarView.Month"
-      >
+      <div class="btn btn-primary" (click)="setView(CalendarView.Month)" [class.active]="view === CalendarView.Month">
         Month
       </div>
-      <div
-        class="btn btn-primary"
-        (click)="setView(CalendarView.Week)"
-        [class.active]="view === CalendarView.Week"
-      >
+      <div class="btn btn-primary" (click)="setView(CalendarView.Week)" [class.active]="view === CalendarView.Week">
         Week
       </div>
-      <div
-        class="btn btn-primary"
-        (click)="setView(CalendarView.Day)"
-        [class.active]="view === CalendarView.Day"
-      >
+      <div class="btn btn-primary" (click)="setView(CalendarView.Day)" [class.active]="view === CalendarView.Day">
         Day
       </div>
     </div>
@@ -61,49 +35,80 @@
 </div>
 <br />
 <div [ngSwitch]="view">
-  <mwl-calendar-month-view
-    *ngSwitchCase="CalendarView.Month"
-    [viewDate]="viewDate"
-    [events]="events"
-    [refresh]="refresh"
-    [activeDayIsOpen]="activeDayIsOpen"
-    (dayClicked)="dayClicked($event.day)"
-    (eventClicked)="handleEvent('Clicked', $event.event)"
-  >
+  <mwl-calendar-month-view *ngSwitchCase="CalendarView.Month" [viewDate]="viewDate" [events]="events"
+    [activeDayIsOpen]="activeDayIsOpen" (dayClicked)="dayClicked($event.day)"
+    (eventClicked)="handleEvent('Clicked', $event.event)">
   </mwl-calendar-month-view>
-  <mwl-calendar-week-view
-    *ngSwitchCase="CalendarView.Week"
-    [viewDate]="viewDate"
-    [events]="events"
-    [refresh]="refresh"
-    (eventClicked)="handleEvent('Clicked', $event.event)"
-  >
+  <mwl-calendar-week-view *ngSwitchCase="CalendarView.Week" [viewDate]="viewDate" [events]="events"
+    (eventClicked)="handleEvent('Clicked', $event.event)">
   </mwl-calendar-week-view>
-  <mwl-calendar-day-view
-    *ngSwitchCase="CalendarView.Day"
-    [viewDate]="viewDate"
-    [events]="events"
-    [refresh]="refresh"
-    (eventClicked)="handleEvent('Clicked', $event.event)"
-  >
+  <mwl-calendar-day-view *ngSwitchCase="CalendarView.Day" [viewDate]="viewDate" [events]="events"
+    (eventClicked)="handleEvent('Clicked', $event.event)">
   </mwl-calendar-day-view>
 </div>
 
-<ng-template #modalContent let-close="close">
+<ng-template #modalProfesional let-close="close">
   <div class="modal-header">
-    <h5 class="modal-title">Event action occurred</h5>
+    <h5 class="modal-title">REVISION TURNO PACIENTE</h5>
     <button type="button" class="close" (click)="close()">
       <span aria-hidden="true">&times;</span>
     </button>
   </div>
   <div class="modal-body">
     <div>
-      Action:
-      <pre>{{ modalData?.action }}</pre>
+      PACIENTE:
+      <pre>{{ modalData.event.meta.paciente.nombre }}</pre>
     </div>
     <div>
-      Event:
-      <pre>{{ modalData?.event | json }}</pre>
+      COMENTARIO PACIENTE:
+      <pre>{{ modalData.event.meta.comentarioPaciente }}</pre>
+    </div>
+    <mat-form-field appearance="fill">
+      <mat-label>Motivo</mat-label>
+      <textarea matInput matTextareaAutosize [(ngModel)]="modalData.event.meta.comentarioProfesional"></textarea>
+    </mat-form-field>
+    <hr>
+    <div>
+      <button mat-raised-button color="primary"
+        (click)="actualizarTurno(modalData.event, modalData.event.meta , estadosTurno.ACEPTADO, close)">CONFIRMAR</button>
+      <button mat-raised-button color="primary"
+        (click)="actualizarTurno(modalData.event, modalData.event.meta , estadosTurno.RECHAZADO, close)">RECHAZAR</button>
+      <button mat-raised-button color="primary" (click)="atender()">ATENDER</button>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-secondary" (click)="close()">
+      OK
+    </button>
+  </div>
+</ng-template>
+
+<ng-template #modalPaciente let-close="close">
+  <div class="modal-header">
+    <h5 class="modal-title">REVISION TURNO PROFESIONAL</h5>
+    <button type="button" class="close" (click)="close()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <div>
+      PACIENTE:
+      <pre>{{ modalData.event.meta.paciente.nombre }}</pre>
+    </div>
+    <div>
+      COMENTARIO PROFESIONAL:
+      <pre>{{ modalData.event.meta.comentarioProfesional }}</pre>
+    </div>
+    <mat-form-field appearance="fill">
+      <mat-label>Motivo</mat-label>
+      <textarea matInput matTextareaAutosize [(ngModel)]="modalData.event.meta.comentarioPaciente"></textarea>
+    </mat-form-field>
+    <hr>
+    <div>
+      <button mat-raised-button color="primary"
+        (click)="actualizarTurno(modalData.event, modalData.event.meta , estadosTurno.RECHAZADO, close)">CANCELAR</button>
+        <button mat-raised-button color="primary"
+        (click)="actualizarTurno(modalData.event, modalData.event.meta , undefined, close)">COMPLETAR ENCUESTA</button>
     </div>
   </div>
   <div class="modal-footer">
