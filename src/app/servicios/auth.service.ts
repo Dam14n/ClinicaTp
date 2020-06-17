@@ -53,7 +53,7 @@ export class AuthService {
   }
 
   public login(nombre: string, clave: string, onLogin: Function, onLoginError: Function) {
-    let subsc = this.angularFirestore.collection<Usuario>('usuarios',
+    this.angularFirestore.collection<Usuario>('usuarios',
       ref => ref
         .where('nombre', '==', nombre)
         .where('clave', '==', clave)
@@ -82,7 +82,9 @@ export class AuthService {
 
   // TODO mover a usuario service (refactorizar codigo de este servicio)
   public obtenerUsuarioActual(): Usuario {
-    return JSON.parse(localStorage.getItem('clinicaCredentials'));
+    let usuario = JSON.parse(localStorage.getItem('clinicaCredentials'));
+    console.log(usuario);
+    return usuario;
   }
 
   public actualizarUsuario(usuario: Usuario) {
