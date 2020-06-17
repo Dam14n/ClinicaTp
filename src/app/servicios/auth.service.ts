@@ -52,7 +52,7 @@ export class AuthService {
   }
 
   public login(nombre: string, clave: string, onLogin: Function, onLoginError: Function) {
-    this.angularFirestore.collection<Usuario>('usuarios',
+    let subsc = this.angularFirestore.collection<Usuario>('usuarios',
       ref => ref
         .where('nombre', '==', nombre)
         .where('clave', '==', clave)
@@ -60,7 +60,8 @@ export class AuthService {
     )
       .valueChanges()
       .subscribe(usuarios => {
-        if (usuarios.length === 1) {
+        // TODO handle users with same name and pass
+        if (usuarios[0]) {
           localStorage.setItem('clinicaCredentials', JSON.stringify(usuarios[0]));
           onLogin();
         } else {
@@ -83,7 +84,7 @@ export class AuthService {
     return JSON.parse(localStorage.getItem('clinicaCredentials'));
   }
 
-  public aprobarUsuario(usuario: Usuario) {
+  public actualizarUsuario(usuario: Usuario) {
     this.usuariosCollectionRef.doc(usuario.id).set(usuario);
   }
 

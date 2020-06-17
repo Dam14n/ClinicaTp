@@ -3,12 +3,13 @@ import { Profesional } from './profesional';
 import { Usuario } from './usuario';
 
 export interface Turno {
-    id: string,
+    id?: string,
     profesional: Profesional,
     paciente: Usuario,
     creacion: firestore.Timestamp,
-    fechaTurno: firestore.Timestamp,
-    comentarioPaciente: string,
-    encuesta: string,
-    comentarioProfesional: string
+    dia: firestore.Timestamp,
+    horario: string,
+    comentarioPaciente?: string,
+    encuesta?: string,
+    comentarioProfesional?: string
 }

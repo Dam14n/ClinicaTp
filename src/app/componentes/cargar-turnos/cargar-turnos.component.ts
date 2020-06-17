@@ -1,9 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { DAYS_OF_WEEK } from 'angular-calendar';
-import { Profesional } from 'src/app/clases/profesional';
+import { Especialidad } from 'src/app/clases/especialidad';
+import { EspecialidadService } from 'src/app/servicios/especialidad.service';
 import { AuthService } from 'src/app/servicios/auth.service';
+import { Profesional } from 'src/app/clases/profesional';
+import { Turno } from 'src/app/clases/turno';
+import { TurnoService } from 'src/app/servicios/turno.service';
+import { firestore } from 'firebase';
 
 @Component({
   selector: 'app-cargar-turnos',
@@ -11,38 +15,43 @@ import { AuthService } from 'src/app/servicios/auth.service';
   styleUrls: ['./cargar-turnos.component.css']
 })
 export class CargarTurnosComponent implements OnInit {
-  updateForm = new FormGroup({
-    desde: new FormControl('', Validators.required),
-    hasta: new FormControl('', Validators.required),
-    dias: new FormControl('', Validators.required)
+  turnoForm = new FormGroup({
+    horario: new FormControl('', Validators.required),
+    dia: new FormControl('', Validators.required),
+    profesional: new FormControl('', Validators.required),
+    especialidad: new FormControl('', Validators.required)
   });
-  selectSelections: Array<DAYS_OF_WEEK>;
-  especialidadesForm;
-  diasDeLaSemana = ['Lunes', 'Martes', 'Miercoles', 'Jueves', 'Viernes'];
-  usuario: Profesional;
+  especialidades: Especialidad[];
+  profesionales: Profesional[];
 
   constructor(
+    private router: Router,
+    private especialidadService: EspecialidadService,
     private authService: AuthService,
-    private router: Router) {
+    private turnoService: TurnoService) {
   }
 
   ngOnInit(): void {
-    this.usuario = this.authService.obtenerUsuarioActual() as Profesional;
-    this.updateForm.controls.desde.setValue(this.usuario.desde);
-    this.updateForm.controls.hasta.setValue(this.usuario.hasta);
-    this.updateForm.controls.dias.setValue(this.usuario.dias);
-    this.selectSelections = this.usuario.dias || [];
+    this.especialidadService.obtenerEspecialidades().subscribe(especialidades => this.especialidades = especialidades);
   }
 
   cancelar() {
     this.router.navigate(['']);
   }
 
-  actualizarDatos = () => {
-    this.usuario.desde = this.updateForm.controls.desde.value;
-    this.usuario.hasta = this.updateForm.controls.hasta.value;
-    this.usuario.dias = this.updateForm.controls.dias.value;
-    this.authService.aprobarUsuario(this.usuario);
+  pedirTurno = () => {
+    let turno: Turno = {
+      creacion: firestore.Timestamp.fromDate(new Date()),
+      dia: firestore.Timestamp.fromDate(new Date(this.turnoForm.controls.dia.value)),
+      horario: this.turnoForm.controls.horario.value,
+      paciente: this.authService.obtenerUsuarioActual(),
+      profesional: this.turnoForm.controls.profesional.value
+    };
+    this.turnoService.pedirTurno(turno);
     this.router.navigate(['Bienvenido']);
+  }
+
+  onSeleccionarEspecialidad = () => {
+    this.authService.obtenerProfesionalesAprobados().then(profesionales => this.profesionales = profesionales);
   }
 }

@@ -1,9 +1,9 @@
-import { DAYS_OF_WEEK } from 'angular-calendar';
+import { DIAS_DE_LA_SEMANA } from '../enum/dias-de-la-semana.enum';
 import { Usuario } from './usuario';
 
 export interface Profesional extends Usuario {
     especialidades: Array<string>,
-    dias: DAYS_OF_WEEK[],
+    dias: DIAS_DE_LA_SEMANA[],
     desde: number,
     hasta: number
 }

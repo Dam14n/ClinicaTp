@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { AuthService } from 'src/app/servicios/auth.service';
 import { Profesional } from 'src/app/clases/profesional';
-import { DAYS_OF_WEEK } from 'angular-calendar';
+import { DIAS_DE_LA_SEMANA } from 'src/app/enum/dias-de-la-semana.enum';
+import { AuthService } from 'src/app/servicios/auth.service';
 
 @Component({
   selector: 'app-configuracion-profesional',
@@ -16,9 +16,9 @@ export class ConfiguracionProfesionalComponent implements OnInit {
     hasta: new FormControl('', Validators.required),
     dias: new FormControl('', Validators.required)
   });
-  selectSelections: Array<DAYS_OF_WEEK>;
+  selectSelections: Array<DIAS_DE_LA_SEMANA>;
   especialidadesForm;
-  diasDeLaSemana = ['Lunes', 'Martes', 'Miercoles', 'Jueves', 'Viernes'];
+  diasDeLaSemana = DIAS_DE_LA_SEMANA;
   usuario: Profesional;
 
   constructor(
@@ -42,7 +42,7 @@ export class ConfiguracionProfesionalComponent implements OnInit {
     this.usuario.desde = this.updateForm.controls.desde.value;
     this.usuario.hasta = this.updateForm.controls.hasta.value;
     this.usuario.dias = this.updateForm.controls.dias.value;
-    this.authService.aprobarUsuario(this.usuario);
+    this.authService.actualizarUsuario(this.usuario);
     this.router.navigate(['Bienvenido']);
   }
 

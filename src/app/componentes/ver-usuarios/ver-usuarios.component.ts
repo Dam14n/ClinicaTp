@@ -39,7 +39,7 @@ export class VerUsuariosComponent implements OnInit {
 
   aprobarUsuario = (usuario: Usuario) => {
     usuario.estaAprobado = true;
-    this.authService.aprobarUsuario(usuario);
+    this.authService.actualizarUsuario(usuario);
   }
 
   onPageChange = (paginado: PageEvent) => {

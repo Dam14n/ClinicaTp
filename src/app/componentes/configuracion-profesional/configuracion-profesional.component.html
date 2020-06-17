@@ -36,7 +36,7 @@
                                         {{updateForm.controls.dias.value?.length === 2 ? 'otra' : 'otras'}})
                                     </span>
                                 </mat-select-trigger>
-                                <mat-option *ngFor="let dia of diasDeLaSemana" [value]="dia">{{dia}}
+                                <mat-option *ngFor="let dia of diasDeLaSemana | enumToArray" [value]="dia.name">{{dia.name}}
                                 </mat-option>
                             </mat-select>
                         </mat-form-field>
