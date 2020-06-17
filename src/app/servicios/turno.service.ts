@@ -12,6 +12,7 @@ export class TurnoService {
   constructor(private firestore: AngularFirestore) { }
 
   pedirTurno(turno: Turno) {
+    turno.id = this.firestore.createId();
     this.firestore.collection<Turno>('turnos').add(turno);
   }
 
@@ -21,7 +22,7 @@ export class TurnoService {
 
   private obtenerTurnoPara = (tipo: string, usuario: Usuario) =>
     this.firestore.collection<Turno>('turnos', ref =>
-      ref.where(tipo, '==', usuario))
+      ref.where(tipo + '.id', '==', usuario.id))
       .valueChanges()
 
 }

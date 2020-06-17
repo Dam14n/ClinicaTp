@@ -17,13 +17,7 @@ export class AuthService {
 
   constructor(private angularFirestore: AngularFirestore) {
     this.usuariosCollectionRef = this.angularFirestore.collection<Usuario>('usuarios');
-    this.usuarios = this.usuariosCollectionRef.snapshotChanges().pipe(map(actions => {
-      return actions.map(action => {
-        const data = action.payload.doc.data();
-        const id = action.payload.doc.id;
-        return { id, ...data };
-      });
-    }));
+    this.usuarios = this.usuariosCollectionRef.valueChanges();
   }
 
   public isAuthenticated(): boolean {
@@ -54,7 +48,7 @@ export class AuthService {
   }
 
   public login(nombre: string, clave: string, onLogin: Function, onLoginError: Function) {
-    const ref = this.angularFirestore.collection<Usuario>('usuarios').ref;
+    const ref = this.usuariosCollectionRef.ref;
     ref
       .where('nombre', '==', nombre)
       .where('clave', '==', clave)
@@ -79,6 +73,7 @@ export class AuthService {
   }
 
   public registrarUsuario(usuario: Usuario) {
+    usuario.id = this.angularFirestore.createId();
     this.usuariosCollectionRef.add(usuario);
   }
 
@@ -105,7 +100,7 @@ export class AuthService {
   }
 
   usuarioYaExiste = (usuario: Usuario, onSuccess: Function, onError: Function) => {
-    const ref = this.angularFirestore.collection<Usuario>('usuarios').ref;
+    const ref = this.usuariosCollectionRef.ref;
     ref.where('nombre', '==', usuario.nombre)
       .where('clave', '==', usuario.clave)
       .get()
