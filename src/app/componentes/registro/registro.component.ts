@@ -79,7 +79,6 @@ export class RegistroComponent implements OnInit {
 		switch (this.tipoUsuario) {
 			case this.tiposUsuario.ADMIN:
 				usuario = (usuario as Admin) = {
-					id: undefined,
 					nombre: this.signUpForm.controls.nombre.value,
 					clave: this.signUpForm.controls.clave.value,
 					email: this.signUpForm.controls.email.value,
@@ -90,7 +89,6 @@ export class RegistroComponent implements OnInit {
 				break;
 			case this.tiposUsuario.PACIENTE:
 				usuario = (usuario as Paciente) = {
-					id: undefined,
 					nombre: this.signUpForm.controls.nombre.value,
 					clave: this.signUpForm.controls.clave.value,
 					email: this.signUpForm.controls.email.value,
@@ -103,20 +101,25 @@ export class RegistroComponent implements OnInit {
 				break;
 			case this.tiposUsuario.PROFESIONAL:
 				usuario = (usuario as Profesional) = {
-					id: undefined,
 					nombre: this.signUpForm.controls.nombre.value,
 					clave: this.signUpForm.controls.clave.value,
 					email: this.signUpForm.controls.email.value,
 					especialidades: this.signUpForm.controls.especialidades.value,
 					tipo: this.tiposUsuario.PROFESIONAL,
 					estaAprobado: false,
-					creation: firestore.Timestamp.now(),
-					desde: null,
-					dias: null,
-					hasta: null
+					creation: firestore.Timestamp.now()
 				}
 				break;
 		}
+		this.authService.usuarioYaExiste(usuario, () => this.mostrarError(), () => this.realizarRegistro(usuario));
+	}
+
+	// TODO mostrar error en usuario repetido
+	mostrarError = () => {
+		console.log("Usuario ya existente!!!!");
+	}
+
+	private realizarRegistro = (usuario: Usuario) => {
 		this.authService.registrarUsuario(usuario);
 		this.router.navigate(['']);
 	}

@@ -3,7 +3,8 @@ import { Usuario } from './usuario';
 
 export interface Profesional extends Usuario {
     especialidades: Array<string>,
-    dias: DIAS_DE_LA_SEMANA[],
-    desde: number,
-    hasta: number
+    dias?: DIAS_DE_LA_SEMANA[],
+    desde?: number,
+    hasta?: number,
+    duracion?: number
 }

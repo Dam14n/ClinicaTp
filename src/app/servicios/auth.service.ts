@@ -44,7 +44,8 @@ export class AuthService {
       .orderBy('creation', 'desc')
       .limit(pageEvent.pageSize + (pageEvent.pageIndex * pageEvent.pageSize));
     if (lastDoc) {
-      query.startAfter(lastDoc.creation as firestore.Timestamp);
+      const date = lastDoc.creation as firestore.Timestamp;
+      query.where('creation', '>=', date.toDate());
     }
     return query.get().then(
       querySnapshots => querySnapshots.docs.map<Usuario>(user => {
@@ -53,22 +54,24 @@ export class AuthService {
   }
 
   public login(nombre: string, clave: string, onLogin: Function, onLoginError: Function) {
-    this.angularFirestore.collection<Usuario>('usuarios',
-      ref => ref
-        .where('nombre', '==', nombre)
-        .where('clave', '==', clave)
-        .where('estaAprobado', '==', true)
-    )
-      .valueChanges()
-      .subscribe(usuarios => {
-        // TODO handle users with same name and pass
-        if (usuarios[0]) {
-          localStorage.setItem('clinicaCredentials', JSON.stringify(usuarios[0]));
-          onLogin();
-        } else {
-          onLoginError();
-        }
-      });
+    const ref = this.angularFirestore.collection<Usuario>('usuarios').ref;
+    ref
+      .where('nombre', '==', nombre)
+      .where('clave', '==', clave)
+      .where('estaAprobado', '==', true)
+      .get()
+      .then(
+        querySnapshots => {
+          const usuarios = querySnapshots.docs.map<Usuario>(user => {
+            return { id: user.id, ...user.data() } as Usuario
+          });
+          if (usuarios[0]) {
+            localStorage.setItem('clinicaCredentials', JSON.stringify(usuarios[0]));
+            onLogin();
+          } else {
+            onLoginError();
+          }
+        });
   }
 
   public logout() {
@@ -76,8 +79,7 @@ export class AuthService {
   }
 
   public registrarUsuario(usuario: Usuario) {
-    delete usuario.id;
-    this.usuariosCollectionRef.add({ ...usuario });
+    this.usuariosCollectionRef.add(usuario);
   }
 
   // TODO mover a usuario service (refactorizar codigo de este servicio)
@@ -100,6 +102,17 @@ export class AuthService {
         querySnapshots => querySnapshots.docs.map<Profesional>(user => {
           return { id: user.id, ...user.data() } as Profesional
         }));
+  }
+
+  usuarioYaExiste = (usuario: Usuario, onSuccess: Function, onError: Function) => {
+    const ref = this.angularFirestore.collection<Usuario>('usuarios').ref;
+    ref.where('nombre', '==', usuario.nombre)
+      .where('clave', '==', usuario.clave)
+      .get()
+      .then(
+        querySnapshots => {
+          querySnapshots.docs.length ? onSuccess() : onError();
+        })
   }
 
 }
