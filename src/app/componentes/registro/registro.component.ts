@@ -163,4 +163,9 @@ export class RegistroComponent implements OnInit {
 		this.signUpForm.controls.verificarRecaptcha.value ? recaptcha.setValidators(Validators.required) : recaptcha.clearValidators();
 		this.signUpForm.controls.recaptcha.updateValueAndValidity();
 	}
+
+	resolved(captchaResponse: string, res) {
+		console.log(`Resolved response token: ${captchaResponse}`);
+		//res.getResponse(captchaResponse);
+	  }
 }

@@ -7,7 +7,7 @@ import { NgbModalModule } from '@ng-bootstrap/ng-bootstrap';
 import { CalendarModule, DateAdapter } from 'angular-calendar';
 import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
 import { ChartModule } from 'angular-highcharts';
-import { RecaptchaFormsModule, RecaptchaModule, RecaptchaSettings, RecaptchaV3Module, RECAPTCHA_SETTINGS } from 'ng-recaptcha';
+import { RecaptchaModule, RecaptchaFormsModule } from 'ng-recaptcha';
 import { AppComponent } from './app.component';
 import { AtenderComponent } from './componentes/atender/atender.component';
 import { BienvenidoComponent } from './componentes/bienvenido/bienvenido.component';
@@ -67,16 +67,11 @@ import { ExcludeFilterPipe } from './pipe/exclude-filter.pipe';
       provide: DateAdapter,
       useFactory: adapterFactory,
     }),
-    RecaptchaV3Module,
     RecaptchaModule,
     RecaptchaFormsModule,
     ChartModule
   ],
-  providers: [EnumToArrayPipe, ExcludeFilterPipe, DateFormatPipe, {
-    provide: RECAPTCHA_SETTINGS, useValue: {
-      siteKey: '6LdKEaYZAAAAABY3o0XC3h6K4DxqxQYC2DOY2IPj',
-    } as RecaptchaSettings
-  }],
+  providers: [EnumToArrayPipe, ExcludeFilterPipe, DateFormatPipe],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
