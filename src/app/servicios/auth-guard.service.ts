@@ -27,7 +27,7 @@ export class AuthGuardService implements CanActivate {
   }
 
   verificarUsuario = () =>  {
-    this.usuario = this.auth.obtenerUsuarioActual();
+    this.usuario = this.auth.obtenerUsuarioActualFromLocal();
     if(this.usuario){
       this.obtenerNavegacion();
     }

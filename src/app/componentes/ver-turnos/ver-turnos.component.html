@@ -1,8 +1,8 @@
 <app-menu></app-menu>
 
 <div class="filtro">
-  <input type="text" class="form-control" placeholder="Busqueda por campos" [(ngModel)]="busqueda" (keydown.enter)="filtrarTurnos()"
-    aria-label="Username">
+  <input type="text" class="form-control" placeholder="Busqueda por campos" [(ngModel)]="busqueda"
+    (keydown.enter)="filtrarTurnos()" aria-label="Username">
 </div>
 
 <div class="row text-center">
@@ -86,12 +86,13 @@
       <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
     </mat-table>
     <hr>
-    <div class="butonera-container">
+    <div class="butonera-container" *ngIf="!verificarEstado(modalData.event.meta.estado, estadosTurno.FINALIZADO)">
       <button mat-raised-button color="primary"
         (click)="actualizarTurno(modalData.event, modalData.event.meta , estadosTurno.ACEPTADO, close)">CONFIRMAR</button>
       <button mat-raised-button color="primary" [disabled]="!modalData.event.meta.comentarioProfesional"
         (click)="actualizarTurno(modalData.event, modalData.event.meta , estadosTurno.RECHAZADO, close)">RECHAZAR</button>
-      <button mat-raised-button color="primary" [disabled]="(modalData.event.meta.estado !== estadosTurno.FINALIZADO)"
+      <button mat-raised-button color="primary"
+        [disabled]="verificarEstado(modalData.event.meta.estado, estadosTurno.RECHAZADO)"
         (click)="atender(modalData.event.meta, close)">ATENDER</button>
     </div>
   </div>

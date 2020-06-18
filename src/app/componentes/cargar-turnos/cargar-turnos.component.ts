@@ -42,17 +42,19 @@ export class CargarTurnosComponent implements OnInit {
   }
 
   pedirTurno = () => {
-    let turno: Turno = {
-      creacion: firestore.Timestamp.fromDate(new Date()),
-      dia: firestore.Timestamp.fromDate(new Date(this.turnoForm.controls.dia.value)),
-      horario: this.turnoForm.controls.horario.value,
-      paciente: this.authService.obtenerUsuarioActual(),
-      profesional: this.turnoForm.controls.profesional.value,
-      estado: this.turnoEstados.SIN_ESTADO,
-      especialidad: this.turnoForm.controls.especialidad.value.nombre
-    };
-    this.turnoService.pedirTurno(turno);
-    this.router.navigate(['Bienvenido']);
+    this.authService.obtenerUsuarioActual().subscribe(usuarioActual => {
+      let turno: Turno = {
+        creacion: firestore.Timestamp.fromDate(new Date()),
+        dia: firestore.Timestamp.fromDate(new Date(this.turnoForm.controls.dia.value)),
+        horario: this.turnoForm.controls.horario.value,
+        paciente: usuarioActual,
+        profesional: this.turnoForm.controls.profesional.value,
+        estado: this.turnoEstados.SIN_ESTADO,
+        especialidad: this.turnoForm.controls.especialidad.value.nombre
+      };
+      this.turnoService.pedirTurno(turno);
+      this.router.navigate(['Bienvenido']);
+    });
   }
 
   onSeleccionarEspecialidad = () => {

@@ -28,12 +28,14 @@ export class ConfiguracionProfesionalComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.usuario = this.authService.obtenerUsuarioActual() as Profesional;
-    this.updateForm.controls.desde.setValue(this.usuario.desde);
-    this.updateForm.controls.hasta.setValue(this.usuario.hasta);
-    this.updateForm.controls.dias.setValue(this.usuario.dias);
-    this.updateForm.controls.duracion.setValue(this.usuario.duracion);
-    this.selectSelections = this.usuario.dias || [];
+    this.authService.obtenerUsuarioActual().subscribe(usuarioActual => {
+      this.usuario = usuarioActual as Profesional;
+      this.updateForm.controls.desde.setValue(this.usuario.desde);
+      this.updateForm.controls.hasta.setValue(this.usuario.hasta);
+      this.updateForm.controls.dias.setValue(this.usuario.dias);
+      this.updateForm.controls.duracion.setValue(this.usuario.duracion);
+      this.selectSelections = this.usuario.dias || [];
+    });
   }
 
   cancelar() {

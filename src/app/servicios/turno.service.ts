@@ -16,7 +16,7 @@ export class TurnoService {
 
   pedirTurno(turno: Turno) {
     turno.id = this.firestore.createId();
-    this.firestore.collection<Turno>('turnos').add(turno);
+    this.firestore.collection<Turno>('turnos').doc(turno.id).set(turno);
   }
 
   obtenerTurnosParaUsuario(usuario: Usuario) {

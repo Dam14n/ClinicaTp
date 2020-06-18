@@ -46,7 +46,7 @@ export class VerTurnosComponent {
   busqueda: any;
 
   constructor(private modal: NgbModal, private turnoService: TurnoService, private authService: AuthService, private router: Router) {
-    this.turnoService.obtenerTurnosParaUsuario(this.authService.obtenerUsuarioActual()).subscribe(turnos => this.cargarTurnos(turnos));
+    this.authService.obtenerUsuarioActual().subscribe(usuarioActual => this.turnoService.obtenerTurnosParaUsuario(usuarioActual).subscribe(turnos => this.cargarTurnos(turnos)));
   }
 
   cargarTurnos(turnos: Turno[]) {
@@ -94,11 +94,13 @@ export class VerTurnosComponent {
 
   handleEvent(action: string, event: CalendarEvent): void {
     this.modalData = { event, action };
-    if (this.authService.obtenerUsuarioActual().tipo === TipoUsuario.PROFESIONAL) {
-      this.modal.open(this.modalProfesional, { size: 'lg' });
-    } else {
-      this.modal.open(this.modalPaciente, { size: 'lg' });
-    }
+    this.authService.obtenerUsuarioActual().subscribe(usuarioActual => {
+      if (usuarioActual.tipo === TipoUsuario.PROFESIONAL) {
+        this.modal.open(this.modalProfesional, { size: 'lg' });
+      } else {
+        this.modal.open(this.modalPaciente, { size: 'lg' });
+      }
+    })
   }
 
   setView(view: CalendarView) {
@@ -122,12 +124,18 @@ export class VerTurnosComponent {
   }
 
   filtrarTurnos = () => {
-    if(this.busqueda){
+    if (this.busqueda) {
       this.events = [];
       this.turnoService.filtrarTurnos(this.busqueda).subscribe(turno => this.cargarTurno(turno));
-    }else{
-      this.turnoService.obtenerTurnosParaUsuario(this.authService.obtenerUsuarioActual()).subscribe(turnos => this.cargarTurnos(turnos));
+    } else {
+      this.authService.obtenerUsuarioActual().subscribe(usuarioActual => {
+        this.turnoService.obtenerTurnosParaUsuario(usuarioActual).subscribe(turnos => this.cargarTurnos(turnos));
+      });
     }
+  }
+
+  verificarEstado(estadoTurno: TurnoEstado, estadoAVerificar: TurnoEstado){
+    return estadoTurno === estadoAVerificar;
   }
 
 }

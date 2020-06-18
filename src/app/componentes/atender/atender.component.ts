@@ -66,6 +66,7 @@ export class AtenderComponent implements OnInit {
   actualizarInformacionExtra = () => {
     this.informacionExtra.push(this.campoNuevo);
     this.campoNuevo = { nombre: '', valor: '' };
+    this.informacionExtra = new Array<any>(...this.informacionExtra);
   }
 
 }

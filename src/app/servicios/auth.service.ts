@@ -33,6 +33,7 @@ export class AuthService {
     this.usuariosCollectionRef.ref.get().then(snap => snap.size);
 
 
+  // TODO fix pagination
   public obtenerUsuarios = (pageEvent: PageEvent, lastDoc) => {
     let query = this.usuariosCollectionRef.ref
       .orderBy('creation', 'desc')
@@ -48,8 +49,7 @@ export class AuthService {
   }
 
   public login(nombre: string, clave: string, onLogin: Function, onLoginError: Function) {
-    const ref = this.usuariosCollectionRef.ref;
-    ref
+    this.usuariosCollectionRef.ref
       .where('nombre', '==', nombre)
       .where('clave', '==', clave)
       .where('estaAprobado', '==', true)
@@ -74,11 +74,19 @@ export class AuthService {
 
   public registrarUsuario(usuario: Usuario) {
     usuario.id = this.angularFirestore.createId();
-    this.usuariosCollectionRef.add(usuario);
+    this.usuariosCollectionRef.doc(usuario.id).set(usuario);
   }
 
   // TODO mover a usuario service (refactorizar codigo de este servicio)
-  public obtenerUsuarioActual(): Usuario {
+  public obtenerUsuarioActual() {
+    let usuario = JSON.parse(localStorage.getItem('clinicaCredentials'));
+    return this.usuariosCollectionRef
+      .doc(usuario.id)
+      .get()
+      .pipe(map(doc => doc.data() as Usuario));
+  }
+
+  public obtenerUsuarioActualFromLocal() {
     let usuario = JSON.parse(localStorage.getItem('clinicaCredentials'));
     return usuario;
   }
