@@ -48,7 +48,7 @@
     "firebase": ">= 5.5.7 <8",
     "font-awesome": "^4.7.0",
     "highcharts": "^8.1.2",
-    "jquery": "^1.9.1",
+    "jquery": "^3.5.0",
     "ng-recaptcha": "^5.0.0",
     "ngx-bootstrap": "^5.6.1",
     "path": "^0.12.7",
