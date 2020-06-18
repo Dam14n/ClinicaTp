@@ -2,6 +2,7 @@ import { firestore } from 'firebase';
 import { Profesional } from './profesional';
 import { Usuario } from './usuario';
 import { TurnoEstado } from './turno-estado.enum';
+import { Especialidad } from './especialidad';
 
 export interface Turno {
     id?: string,
@@ -14,5 +15,6 @@ export interface Turno {
     encuesta?: string,
     comentarioProfesional?: string,
     estado: TurnoEstado,
-    informacionExtra?: any
+    informacionExtra?: any,
+    especialidad: string
 }

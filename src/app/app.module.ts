@@ -6,13 +6,15 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgbModalModule } from '@ng-bootstrap/ng-bootstrap';
 import { CalendarModule, DateAdapter } from 'angular-calendar';
 import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
-import { RecaptchaFormsModule, RecaptchaModule, RecaptchaV3Module, RECAPTCHA_V3_SITE_KEY, RECAPTCHA_SETTINGS, RecaptchaSettings } from 'ng-recaptcha';
+import { ChartModule } from 'angular-highcharts';
+import { RecaptchaFormsModule, RecaptchaModule, RecaptchaSettings, RecaptchaV3Module, RECAPTCHA_SETTINGS } from 'ng-recaptcha';
 import { AppComponent } from './app.component';
 import { AtenderComponent } from './componentes/atender/atender.component';
 import { BienvenidoComponent } from './componentes/bienvenido/bienvenido.component';
 import { CargarTurnosComponent } from './componentes/cargar-turnos/cargar-turnos.component';
 import { ConfiguracionProfesionalComponent } from './componentes/configuracion-profesional/configuracion-profesional.component';
 import { ErrorComponent } from './componentes/error/error.component';
+import { EstadisticasComponent } from './componentes/estadisticas/estadisticas.component';
 import { LoginComponent } from './componentes/login/login.component';
 import { MenuComponent } from './componentes/menu/menu.component';
 import { RegistroAdminComponent } from './componentes/registro-admin/registro-admin.component';
@@ -46,7 +48,8 @@ import { ExcludeFilterPipe } from './pipe/exclude-filter.pipe';
     CargarTurnosComponent,
     VerUsuariosComponent,
     ConfiguracionProfesionalComponent,
-    AtenderComponent
+    AtenderComponent,
+    EstadisticasComponent
   ],
   imports: [
     BrowserModule,
@@ -64,7 +67,8 @@ import { ExcludeFilterPipe } from './pipe/exclude-filter.pipe';
     }),
     RecaptchaV3Module,
     RecaptchaModule,
-    RecaptchaFormsModule
+    RecaptchaFormsModule,
+    ChartModule
   ],
   providers: [EnumToArrayPipe, ExcludeFilterPipe, {
     provide: RECAPTCHA_SETTINGS, useValue: {

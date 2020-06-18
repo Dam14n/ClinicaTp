@@ -48,7 +48,8 @@ export class CargarTurnosComponent implements OnInit {
       horario: this.turnoForm.controls.horario.value,
       paciente: this.authService.obtenerUsuarioActual(),
       profesional: this.turnoForm.controls.profesional.value,
-      estado: this.turnoEstados.SIN_ESTADO
+      estado: this.turnoEstados.SIN_ESTADO,
+      especialidad: this.turnoForm.controls.especialidad.value.nombre
     };
     this.turnoService.pedirTurno(turno);
     this.router.navigate(['Bienvenido']);
