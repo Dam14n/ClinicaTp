@@ -86,7 +86,7 @@
       <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
     </mat-table>
     <hr>
-    <div class="butonera-container" *ngIf="!verificarEstado(modalData.event.meta.estado, estadosTurno.FINALIZADO)">
+    <div class="butonera-container" *ngIf="estaHabilitado(modalData.event.meta.estado)">
       <button mat-raised-button color="primary"
         (click)="actualizarTurno(modalData.event, modalData.event.meta , estadosTurno.ACEPTADO, close)">CONFIRMAR</button>
       <button mat-raised-button color="primary" [disabled]="!modalData.event.meta.comentarioProfesional"
@@ -142,6 +142,9 @@
         (click)="actualizarTurno(modalData.event, modalData.event.meta , estadosTurno.RECHAZADO, close)">CANCELAR</button>
       <button mat-raised-button color="primary" [disabled]="!modalData.event.meta.comentarioPaciente"
         (click)="actualizarTurno(modalData.event, modalData.event.meta , undefined, close)">COMPLETAR ENCUESTA</button>
+      <button mat-raised-button color="primary"
+        [disabled]="verificarEstado(modalData.event.meta.estado, estadosTurno.FINALIZADO) || verificarEstado(modalData.event.meta.estado, estadosTurno.ELIMINADO)"
+        (click)="actualizarTurno(modalData.event, modalData.event.meta , estadosTurno.ELIMINADO, close)">ELIMINAR</button>
     </div>
   </div>
   <div class="modal-footer">

@@ -23,6 +23,11 @@ const colors: any = {
     primary: '#e3bc08',
     secondary: '#FDF1BA',
   },
+  black: {
+    primary: '#000000',
+    secondary: '#000000',
+  }
+
 };
 
 // Basic configuration from https://angular-calendar.com
@@ -73,6 +78,8 @@ export class VerTurnosComponent {
         return colors.green;
       case this.estadosTurno.RECHAZADO:
         return colors.red;
+        case this.estadosTurno.ELIMINADO:
+          return colors.black;
       default:
         return colors.yellow;
     }
@@ -136,6 +143,10 @@ export class VerTurnosComponent {
 
   verificarEstado(estadoTurno: TurnoEstado, estadoAVerificar: TurnoEstado){
     return estadoTurno === estadoAVerificar;
+  }
+  
+  estaHabilitado(estadoTurno: TurnoEstado){
+    return estadoTurno !== this.estadosTurno.ELIMINADO && estadoTurno !== this.estadosTurno.FINALIZADO;
   }
 
 }
