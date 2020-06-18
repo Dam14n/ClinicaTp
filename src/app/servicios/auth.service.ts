@@ -80,7 +80,6 @@ export class AuthService {
   // TODO mover a usuario service (refactorizar codigo de este servicio)
   public obtenerUsuarioActual(): Usuario {
     let usuario = JSON.parse(localStorage.getItem('clinicaCredentials'));
-    console.log(usuario);
     return usuario;
   }
 

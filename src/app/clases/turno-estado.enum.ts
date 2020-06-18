@@ -1,5 +1,6 @@
 export enum TurnoEstado {
     SIN_ESTADO,
     ACEPTADO,
-    RECHAZADO
+    RECHAZADO,
+    FINALIZADO
 }

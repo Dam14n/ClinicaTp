@@ -10,6 +10,7 @@ import { TipoUsuario } from 'src/app/enum/tipo-usuario.enum';
 import { AuthService } from 'src/app/servicios/auth.service';
 import { Turno } from 'src/app/clases/turno';
 import { TurnoService } from 'src/app/servicios/turno.service';
+import { TurnoEstado } from 'src/app/clases/turno-estado.enum';
 @Component({
   selector: 'app-atender',
   templateUrl: './atender.component.html',
@@ -51,6 +52,7 @@ export class AtenderComponent implements OnInit {
   completarAtencion = () => {
     this.turno.comentarioProfesional = this.turnoForm.controls.comentarioProfesional.value;
     this.turno.informacionExtra = this.informacionExtra;
+    this.turno.estado = TurnoEstado.FINALIZADO;
     this.turnoService.actualizarTurno(this.turno);
     this.router.navigate(['Bienvenido']);
   }

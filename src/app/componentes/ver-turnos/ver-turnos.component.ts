@@ -42,6 +42,7 @@ export class VerTurnosComponent {
   events: CalendarEvent[] = [];
   activeDayIsOpen: boolean = true;
   estadosTurno = TurnoEstado;
+  displayedColumns: string[] = ['nombre', 'valor'];
 
   constructor(private modal: NgbModal, private turnoService: TurnoService, private authService: AuthService, private router: Router) {
     this.turnoService.obtenerTurnosParaUsuario(this.authService.obtenerUsuarioActual()).subscribe(turnos => this.cargarTurnos(turnos));

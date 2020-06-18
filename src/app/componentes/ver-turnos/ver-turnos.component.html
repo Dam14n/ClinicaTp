@@ -67,13 +67,27 @@
       <mat-label>Motivo Cancelacion:</mat-label>
       <textarea matInput matTextareaAutosize [(ngModel)]="modalData.event.meta.comentarioProfesional"></textarea>
     </mat-form-field>
+    <mat-table *ngIf="modalData.event.meta.informacionExtra" mat-table
+      [dataSource]="modalData.event.meta.informacionExtra" class="mat-elevation-z8">
+      <ng-container matColumnDef="nombre">
+        <mat-header-cell *matHeaderCellDef> Nombre </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.nombre}} </mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="valor">
+        <mat-header-cell *matHeaderCellDef> Valor </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.valor}} </mat-cell>
+      </ng-container>
+      <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+      <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+    </mat-table>
     <hr>
-    <div>
+    <div class="butonera-container">
       <button mat-raised-button color="primary"
         (click)="actualizarTurno(modalData.event, modalData.event.meta , estadosTurno.ACEPTADO, close)">CONFIRMAR</button>
       <button mat-raised-button color="primary" [disabled]="!modalData.event.meta.comentarioProfesional"
         (click)="actualizarTurno(modalData.event, modalData.event.meta , estadosTurno.RECHAZADO, close)">RECHAZAR</button>
-      <button mat-raised-button color="primary" (click)="atender(modalData.event.meta, close)">ATENDER</button>
+      <button mat-raised-button color="primary" [disabled]="(modalData.event.meta.estado !== estadosTurno.FINALIZADO)"
+      (click)="atender(modalData.event.meta, close)">ATENDER</button>
     </div>
   </div>
   <div class="modal-footer">
@@ -103,8 +117,21 @@
       <mat-label>Encuesta paciente:</mat-label>
       <textarea matInput matTextareaAutosize [(ngModel)]="modalData.event.meta.comentarioPaciente"></textarea>
     </mat-form-field>
+    <mat-table *ngIf="modalData.event.meta.informacionExtra" mat-table
+      [dataSource]="modalData.event.meta.informacionExtra" class="mat-elevation-z8">
+      <ng-container matColumnDef="nombre">
+        <mat-header-cell *matHeaderCellDef> Nombre </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.nombre}} </mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="valor">
+        <mat-header-cell *matHeaderCellDef> Valor </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.valor}} </mat-cell>
+      </ng-container>
+      <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+      <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+    </mat-table>
     <hr>
-    <div>
+    <div class="butonera-container">
       <button mat-raised-button color="primary"
         (click)="actualizarTurno(modalData.event, modalData.event.meta , estadosTurno.RECHAZADO, close)">CANCELAR</button>
       <button mat-raised-button color="primary" [disabled]="!modalData.event.meta.comentarioPaciente"
