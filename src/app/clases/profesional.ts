@@ -6,5 +6,6 @@ export interface Profesional extends Usuario {
     dias?: DIAS_DE_LA_SEMANA[],
     desde?: number,
     hasta?: number,
-    duracion?: number
+    duracion?: number,
+    estaConfigurado: boolean
 }

@@ -43,6 +43,7 @@ export class VerTurnosComponent {
   activeDayIsOpen: boolean = true;
   estadosTurno = TurnoEstado;
   displayedColumns: string[] = ['nombre', 'valor'];
+  busqueda: any;
 
   constructor(private modal: NgbModal, private turnoService: TurnoService, private authService: AuthService, private router: Router) {
     this.turnoService.obtenerTurnosParaUsuario(this.authService.obtenerUsuarioActual()).subscribe(turnos => this.cargarTurnos(turnos));
@@ -50,18 +51,20 @@ export class VerTurnosComponent {
 
   cargarTurnos(turnos: Turno[]) {
     this.events = [];
-    turnos.forEach(turno => {
-      let dia = turno.dia.toDate();
-      const horario = turno.horario.split(':');
-      dia.setHours(+horario[0], +horario[1]);
-      this.events.push({
-        color: this.obtenerColor(turno),
-        start: dia,
-        title: 'Turno paciente ' + turno.paciente.nombre,
-        end: addMinutes(dia, turno.profesional.duracion),
-        meta: turno
-      });
-    })
+    turnos.forEach(turno => this.cargarTurno(turno))
+  }
+
+  cargarTurno = (turno: Turno) => {
+    let dia = turno.dia.toDate();
+    const horario = turno.horario.split(':');
+    dia.setHours(+horario[0], +horario[1]);
+    this.events.push({
+      color: this.obtenerColor(turno),
+      start: dia,
+      title: 'Turno paciente ' + turno.paciente.nombre,
+      end: addMinutes(dia, turno.profesional.duracion),
+      meta: turno
+    });
   }
 
   obtenerColor = (turno: Turno) => {
@@ -116,6 +119,15 @@ export class VerTurnosComponent {
   atender = (turno: Turno, closePopOver: Function) => {
     closePopOver();
     this.router.navigate(['Atender', turno.id]);
+  }
+
+  filtrarTurnos = () => {
+    if(this.busqueda){
+      this.events = [];
+      this.turnoService.filtrarTurnos(this.busqueda).subscribe(turno => this.cargarTurno(turno));
+    }else{
+      this.turnoService.obtenerTurnosParaUsuario(this.authService.obtenerUsuarioActual()).subscribe(turnos => this.cargarTurnos(turnos));
+    }
   }
 
 }

@@ -1,5 +1,10 @@
 <app-menu></app-menu>
 
+<div class="filtro">
+  <input type="text" class="form-control" placeholder="Busqueda por campos" [(ngModel)]="busqueda" (keydown.enter)="filtrarTurnos()"
+    aria-label="Username">
+</div>
+
 <div class="row text-center">
   <div class="col-md-4">
     <div class="btn-group">
@@ -87,7 +92,7 @@
       <button mat-raised-button color="primary" [disabled]="!modalData.event.meta.comentarioProfesional"
         (click)="actualizarTurno(modalData.event, modalData.event.meta , estadosTurno.RECHAZADO, close)">RECHAZAR</button>
       <button mat-raised-button color="primary" [disabled]="(modalData.event.meta.estado !== estadosTurno.FINALIZADO)"
-      (click)="atender(modalData.event.meta, close)">ATENDER</button>
+        (click)="atender(modalData.event.meta, close)">ATENDER</button>
     </div>
   </div>
   <div class="modal-footer">

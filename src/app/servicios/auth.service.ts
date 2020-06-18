@@ -92,6 +92,7 @@ export class AuthService {
       .where('tipo', '==', 2)
       .where('estaAprobado', '==', true)
       .where('especialidades', 'array-contains', especialidad.nombre)
+      .where('estaConfigurado', '==', true)
       .get().then(
         querySnapshots => querySnapshots.docs.map<Profesional>(user => {
           return { id: user.id, ...user.data() } as Profesional

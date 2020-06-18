@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { of } from 'rxjs';
-import { map, reduce } from 'rxjs/operators';
+import { map, reduce, filter } from 'rxjs/operators';
 import { Turno } from '../clases/turno';
 import { Usuario } from '../clases/usuario';
 import { DIAS_DE_LA_SEMANA } from '../enum/dias-de-la-semana.enum';
@@ -20,7 +20,14 @@ export class TurnoService {
   }
 
   obtenerTurnosParaUsuario(usuario: Usuario) {
-    return usuario.tipo === TipoUsuario.PROFESIONAL ? this.obtenerTurnoPara('profesional', usuario) : this.obtenerTurnoPara('paciente', usuario);
+    switch (usuario.tipo) {
+      case TipoUsuario.PROFESIONAL:
+        return this.obtenerTurnoPara('profesional', usuario);
+      case TipoUsuario.PACIENTE:
+        return this.obtenerTurnoPara('paciente', usuario);
+      case TipoUsuario.ADMIN:
+        return this.firestore.collection<Turno>('turnos').valueChanges()
+    }
   }
 
   private obtenerTurnoPara = (tipo: string, usuario: Usuario) =>
@@ -38,15 +45,15 @@ export class TurnoService {
 
   obtenerMedicosPorTurnos() {
     return this.firestore.collection<Turno>('turnos')
-    .get()
-    .switchMap(docs => of(...docs.docs))
-    .pipe(map(doc => doc.data() as Turno))
-    .pipe(reduce((series, turno) => {
-      let profesional = turno.profesional; 
-      let serie = series.find(serie => serie.name === profesional.nombre) || this.crearNuevaSeriePara(series, profesional.nombre);
-      serie.data.length ? serie.data[0] = serie.data[0] + 1 : serie.data.push(1);
-      return series;
-    }, []))
+      .get()
+      .switchMap(docs => of(...docs.docs))
+      .pipe(map(doc => doc.data() as Turno))
+      .pipe(reduce((series, turno) => {
+        let profesional = turno.profesional;
+        let serie = series.find(serie => serie.name === profesional.nombre) || this.crearNuevaSeriePara(series, profesional.nombre);
+        serie.data.length ? serie.data[0] = serie.data[0] + 1 : serie.data.push(1);
+        return series;
+      }, []))
   }
 
   obtenerMedicosPorDia() {
@@ -61,9 +68,9 @@ export class TurnoService {
         return series;
       }, []))
       .pipe(map(series => {
-          series.forEach(serie => serie.data = [new Set(serie.data).size])
-          return series;
-        }
+        series.forEach(serie => serie.data = [new Set(serie.data).size])
+        return series;
+      }
       ));
   }
 
@@ -92,14 +99,22 @@ export class TurnoService {
 
   obtenerTurnosPorEspecialidad() {
     return this.firestore.collection<Turno>('turnos')
-    .get()
-    .switchMap(docs => of(...docs.docs))
-    .pipe(map(doc => doc.data() as Turno))
-    .pipe(reduce((series, turno) => {
-      let serie = series.find(serie => serie.name === turno.especialidad) || this.crearNuevaSeriePara(series, turno.especialidad);
-      serie.data.length ? serie.data[0] = serie.data[0] + 1 : serie.data.push(1);
-      return series;
-    }, []));
+      .get()
+      .switchMap(docs => of(...docs.docs))
+      .pipe(map(doc => doc.data() as Turno))
+      .pipe(reduce((series, turno) => {
+        let serie = series.find(serie => serie.name === turno.especialidad) || this.crearNuevaSeriePara(series, turno.especialidad);
+        serie.data.length ? serie.data[0] = serie.data[0] + 1 : serie.data.push(1);
+        return series;
+      }, []));
+  }
+
+  filtrarTurnos(busqueda: string) {
+    return this.firestore.collection<Turno>('turnos')
+      .get()
+      .switchMap(docs => of(...docs.docs))
+      .pipe(map(doc => doc.data() as Turno))
+      .pipe(filter(turno => JSON.stringify(turno).toLowerCase().includes(busqueda.toLowerCase())));
   }
 
 }

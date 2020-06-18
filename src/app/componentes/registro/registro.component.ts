@@ -113,7 +113,8 @@ export class RegistroComponent implements OnInit {
 					especialidades: this.signUpForm.controls.especialidades.value,
 					tipo: this.tiposUsuario.PROFESIONAL,
 					estaAprobado: false,
-					creation: firestore.Timestamp.now()
+					creation: firestore.Timestamp.now(),
+					estaConfigurado: false
 				}
 				break;
 		}
