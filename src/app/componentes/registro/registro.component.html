@@ -14,6 +14,13 @@
                 Por favor inserte un nombre de usuario!!
               </mat-error>
             </mat-form-field>
+            <mat-form-field appearance="fill">
+              <mat-label>Ingrese un apellido</mat-label>
+              <input matInput placeholder="Apellido" [formControl]="signUpForm.controls.apellido" required>
+              <mat-error *ngIf="signUpForm.controls.apellido.invalid">
+                Por favor inserte un apellido!!
+              </mat-error>
+            </mat-form-field>
             <mat-form-field  appearance="fill">
               <mat-label>Email</mat-label>
               <input matInput placeholder="Ex. pat@ejemplo.com" [formControl]="signUpForm.controls.email" required>

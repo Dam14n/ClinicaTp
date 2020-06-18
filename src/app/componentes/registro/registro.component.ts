@@ -10,6 +10,7 @@ import { Profesional } from 'src/app/clases/profesional';
 import { Usuario } from 'src/app/clases/usuario';
 import { TipoUsuario } from 'src/app/enum/tipo-usuario.enum';
 import { AuthService } from 'src/app/servicios/auth.service';
+import { ArchivoService } from 'src/app/servicios/archivo.service';
 
 export class MyErrorStateMatcher implements ErrorStateMatcher {
 	isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
@@ -40,6 +41,7 @@ export class RegistroComponent implements OnInit {
 	@Input() showAdmin = false;
 	signUpForm = new FormGroup({
 		nombre: new FormControl('', Validators.required),
+		apellido: new FormControl('', Validators.required),
 		clave: new FormControl('', Validators.required),
 		confirmarClave: new FormControl('', Validators.required),
 		email: new FormControl('', [Validators.required, Validators.email]),
@@ -60,7 +62,8 @@ export class RegistroComponent implements OnInit {
 
 	constructor(
 		private authService: AuthService,
-		private router: Router) {
+		private router: Router,
+		private archivoService: ArchivoService) {
 	}
 
 	ngOnInit() {
@@ -82,6 +85,7 @@ export class RegistroComponent implements OnInit {
 			case this.tiposUsuario.ADMIN:
 				usuario = (usuario as Admin) = {
 					nombre: this.signUpForm.controls.nombre.value,
+					apellido: this.signUpForm.controls.apellido.value,
 					clave: this.signUpForm.controls.clave.value,
 					email: this.signUpForm.controls.email.value,
 					tipo: this.tiposUsuario.ADMIN,
@@ -92,6 +96,7 @@ export class RegistroComponent implements OnInit {
 			case this.tiposUsuario.PACIENTE:
 				usuario = (usuario as Paciente) = {
 					nombre: this.signUpForm.controls.nombre.value,
+					apellido: this.signUpForm.controls.apellido.value,
 					clave: this.signUpForm.controls.clave.value,
 					email: this.signUpForm.controls.email.value,
 					imagen1: this.signUpForm.controls.imagen1.value,
@@ -104,6 +109,7 @@ export class RegistroComponent implements OnInit {
 			case this.tiposUsuario.PROFESIONAL:
 				usuario = (usuario as Profesional) = {
 					nombre: this.signUpForm.controls.nombre.value,
+					apellido: this.signUpForm.controls.apellido.value,
 					clave: this.signUpForm.controls.clave.value,
 					email: this.signUpForm.controls.email.value,
 					especialidades: this.signUpForm.controls.especialidades.value,
@@ -166,6 +172,5 @@ export class RegistroComponent implements OnInit {
 
 	resolved(captchaResponse: string, res) {
 		console.log(`Resolved response token: ${captchaResponse}`);
-		//res.getResponse(captchaResponse);
 	  }
 }
