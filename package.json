@@ -44,6 +44,7 @@
     "core-js": "^3.6.5",
     "date-fns": "^2.14.0",
     "express": "^4.17.1",
+    "file-saver": "^2.0.2",
     "firebase": ">= 5.5.7 <8",
     "font-awesome": "^4.7.0",
     "highcharts": "^8.1.2",
@@ -54,6 +55,7 @@
     "rxjs": "^6.5.5",
     "rxjs-compat": "^6.0.0-rc.0",
     "typescript": "~3.8.3",
+    "xlsx": "^0.16.2",
     "zone.js": "^0.10.3"
   },
   "devDependencies": {

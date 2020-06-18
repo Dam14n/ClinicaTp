@@ -1,9 +1,15 @@
 <app-menu></app-menu>
 
-<button (click)="profPorDia()">Profesionales por dia que se ingresaron al sistema</button>
-<button (click)="profPorHorario()">Profesionales por horario que se ingresaron al sistema</button>
-<button (click)="turnosPorEspecialidad()">Turnos por especialidad</button>
-<button (click)="turnosPorDia()">Turnos por dia por semana</button>
-<button (click)="medicosPorDia()">Medicos por dia</button>
-<button (click)="medicosPorTurnos()">Medicos por turnos</button>
+<div class="butonera-container">
+    <button mat-raised-button (click)="profPorDia()">Profesionales por dia que se ingresaron al sistema</button>
+    <button mat-raised-button (click)="profPorHorario()">Profesionales por horario que se ingresaron al sistema</button>
+    <button mat-raised-button (click)="turnosPorEspecialidad()">Turnos por especialidad</button>
+    <button mat-raised-button (click)="turnosPorDia()">Turnos por dia por semana</button>
+    <button mat-raised-button (click)="medicosPorDia()">Medicos por dia</button>
+    <button mat-raised-button (click)="medicosPorTurnos()">Medicos por turnos</button>
+</div>
 <div [chart]="chart"></div>
+
+<div class="download-container">
+    <button mat-raised-button (click)="descargarExcel()">Descargar excel</button>
+</div>

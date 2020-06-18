@@ -5,6 +5,7 @@ import { AuthService } from 'src/app/servicios/auth.service';
 import { reduce } from 'rxjs/operators';
 import { DIAS_DE_LA_SEMANA } from 'src/app/enum/dias-de-la-semana.enum';
 import { of } from 'rxjs';
+import { ArchivoService } from 'src/app/servicios/archivo.service';
 
 @Component({
   selector: 'app-estadisticas',
@@ -16,7 +17,10 @@ export class EstadisticasComponent implements OnInit {
   title: string;
   chart: Chart;
 
-  constructor(private turnoService: TurnoService, private usuarioService: AuthService) { }
+  constructor(
+    private turnoService: TurnoService,
+    private usuarioService: AuthService,
+    private archivoService: ArchivoService) { }
 
   ngOnInit(): void {
     this.turnosPorDia();
@@ -40,18 +44,18 @@ export class EstadisticasComponent implements OnInit {
 
   profPorDia = () => {
     this.usuarioService.obtenerProfesionalesRegistradosPorDia()
-    .subscribe(data => {
-      this.title = 'Profesionales registrados por dia';
-      this.crearChart(data);
-    });
+      .subscribe(data => {
+        this.title = 'Profesionales registrados por dia';
+        this.crearChart(data);
+      });
   }
 
   profPorHorario = () => {
     this.usuarioService.obtenerProfesionalesRegistradosPorHorario()
-    .subscribe(data => {
-      this.title = 'Profesionales registrados por horario';
-      this.crearChart(data);
-    });
+      .subscribe(data => {
+        this.title = 'Profesionales registrados por horario';
+        this.crearChart(data);
+      });
   }
 
   turnosPorEspecialidad = () => {
@@ -84,6 +88,10 @@ export class EstadisticasComponent implements OnInit {
         this.title = 'Medicos Por Turnos';
         this.crearChart(data);
       });
+  }
+
+  descargarExcel = () => {
+    this.archivoService.exportarExcel(this.chart.ref.series.map(serie => { return { nombre: serie.name, valores: serie.dataMin } }), this.title);
   }
 
 }

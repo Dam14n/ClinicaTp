@@ -1,4 +1,5 @@
 import { NgModule } from '@angular/core';
+import { AngularFireStorageModule } from '@angular/fire/storage';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatNativeDateModule } from '@angular/material/core';
 import { BrowserModule } from '@angular/platform-browser';
@@ -6,8 +7,9 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgbModalModule } from '@ng-bootstrap/ng-bootstrap';
 import { CalendarModule, DateAdapter } from 'angular-calendar';
 import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
-import { ChartModule } from 'angular-highcharts';
-import { RecaptchaModule, RecaptchaFormsModule } from 'ng-recaptcha';
+import { ChartModule, HIGHCHARTS_MODULES } from 'angular-highcharts';
+import exporting from 'highcharts/modules/exporting.src.js';
+import { RecaptchaFormsModule, RecaptchaModule } from 'ng-recaptcha';
 import { AppComponent } from './app.component';
 import { AtenderComponent } from './componentes/atender/atender.component';
 import { BienvenidoComponent } from './componentes/bienvenido/bienvenido.component';
@@ -30,7 +32,9 @@ import { RuteoModule } from './modulos/ruteo/ruteo.module';
 import { DateFormatPipe } from './pipe/date-format.pipe';
 import { EnumToArrayPipe } from './pipe/enum-to-array.pipe';
 import { ExcludeFilterPipe } from './pipe/exclude-filter.pipe';
-
+export function highchartModules() {
+  return [exporting]
+}
 @NgModule({
   declarations: [
     AppComponent,
@@ -60,18 +64,19 @@ import { ExcludeFilterPipe } from './pipe/exclude-filter.pipe';
     RuteoModule,
     MatNativeDateModule,
     AngularMaterialModule,
+    AngularFireStorageModule,
     AngularFirebaseModule,
+    RecaptchaModule,
+    RecaptchaFormsModule,
     ReactiveFormsModule,
     NgbModalModule,
     CalendarModule.forRoot({
       provide: DateAdapter,
       useFactory: adapterFactory,
     }),
-    RecaptchaModule,
-    RecaptchaFormsModule,
     ChartModule
   ],
-  providers: [EnumToArrayPipe, ExcludeFilterPipe, DateFormatPipe],
+  providers: [EnumToArrayPipe, ExcludeFilterPipe, DateFormatPipe, { provide: HIGHCHARTS_MODULES, useFactory: highchartModules }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
