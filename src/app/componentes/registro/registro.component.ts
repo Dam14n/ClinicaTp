@@ -43,7 +43,9 @@ export class RegistroComponent implements OnInit {
 		clave: new FormControl('', Validators.required),
 		confirmarClave: new FormControl('', Validators.required),
 		email: new FormControl('', [Validators.required, Validators.email]),
-		tipo: new FormControl('', Validators.required)
+		tipo: new FormControl('', Validators.required),
+		verificarRecaptcha: new FormControl(true),
+		recaptcha: new FormControl('', Validators.required)
 	}, this.validarClaves);
 
 	hideClave = true;
@@ -156,4 +158,9 @@ export class RegistroComponent implements OnInit {
 		delete this.signUpForm.controls.imagen2;
 	}
 
+	onVerficarRecaptcha = () => {
+		let recaptcha = this.signUpForm.controls.recaptcha;
+		this.signUpForm.controls.verificarRecaptcha.value ? recaptcha.setValidators(Validators.required) : recaptcha.clearValidators();
+		this.signUpForm.controls.recaptcha.updateValueAndValidity();
+	}
 }

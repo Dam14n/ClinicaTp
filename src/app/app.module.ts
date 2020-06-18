@@ -3,11 +3,15 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatNativeDateModule } from '@angular/material/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { NgbModalModule } from '@ng-bootstrap/ng-bootstrap';
 import { CalendarModule, DateAdapter } from 'angular-calendar';
 import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
+import { RecaptchaFormsModule, RecaptchaModule, RecaptchaV3Module, RECAPTCHA_V3_SITE_KEY, RECAPTCHA_SETTINGS, RecaptchaSettings } from 'ng-recaptcha';
 import { AppComponent } from './app.component';
+import { AtenderComponent } from './componentes/atender/atender.component';
 import { BienvenidoComponent } from './componentes/bienvenido/bienvenido.component';
 import { CargarTurnosComponent } from './componentes/cargar-turnos/cargar-turnos.component';
+import { ConfiguracionProfesionalComponent } from './componentes/configuracion-profesional/configuracion-profesional.component';
 import { ErrorComponent } from './componentes/error/error.component';
 import { LoginComponent } from './componentes/login/login.component';
 import { MenuComponent } from './componentes/menu/menu.component';
@@ -23,9 +27,6 @@ import { AngularMaterialModule } from './modulos/angular-material/angular-materi
 import { RuteoModule } from './modulos/ruteo/ruteo.module';
 import { EnumToArrayPipe } from './pipe/enum-to-array.pipe';
 import { ExcludeFilterPipe } from './pipe/exclude-filter.pipe';
-import { NgbModalModule } from '@ng-bootstrap/ng-bootstrap';
-import { ConfiguracionProfesionalComponent } from './componentes/configuracion-profesional/configuracion-profesional.component';
-import { AtenderComponent } from './componentes/atender/atender.component';
 
 @NgModule({
   declarations: [
@@ -61,8 +62,15 @@ import { AtenderComponent } from './componentes/atender/atender.component';
       provide: DateAdapter,
       useFactory: adapterFactory,
     }),
+    RecaptchaV3Module,
+    RecaptchaModule,
+    RecaptchaFormsModule
   ],
-  providers: [EnumToArrayPipe, ExcludeFilterPipe],
+  providers: [EnumToArrayPipe, ExcludeFilterPipe, {
+    provide: RECAPTCHA_SETTINGS, useValue: {
+      siteKey: '6LdKEaYZAAAAABY3o0XC3h6K4DxqxQYC2DOY2IPj',
+    } as RecaptchaSettings
+  }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

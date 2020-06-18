@@ -63,7 +63,9 @@
             </mat-form-field>
           </div>
           <hr>
-
+          <input type="checkbox" id="scales" name="scales" checked formControlName="verificarRecaptcha" (change)="onVerficarRecaptcha()">
+          <label for="scales">Verificar Captcha</label>
+          <re-captcha *ngIf="signUpForm.controls.verificarRecaptcha.value" formControlName="recaptcha"></re-captcha>
           <button [ngClass]="{'button-dissabled': signUpForm.invalid}" class="btn btn-lg btn-primary btn-block text-uppercase" (click)=registrarUsuario() [disabled]="signUpForm.invalid">Registrarse</button>
           <button class="btn btn-lg btn-primary btn-block text-uppercase" (click)="cancelar()">Cancelar</button>
         </form>
