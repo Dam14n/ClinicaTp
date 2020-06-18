@@ -1,12 +1,11 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
+import { of } from 'rxjs';
+import { map, reduce } from 'rxjs/operators';
 import { Turno } from '../clases/turno';
 import { Usuario } from '../clases/usuario';
-import { TipoUsuario } from '../enum/tipo-usuario.enum';
-import { ActivatedRoute } from '@angular/router';
-import { map, reduce, mapTo } from 'rxjs/operators';
-import { Observable, of } from 'rxjs';
 import { DIAS_DE_LA_SEMANA } from '../enum/dias-de-la-semana.enum';
+import { TipoUsuario } from '../enum/tipo-usuario.enum';
 
 @Injectable({
   providedIn: 'root'
@@ -38,7 +37,16 @@ export class TurnoService {
   }
 
   obtenerMedicosPorTurnos() {
-    throw new Error("Method not implemented.");
+    return this.firestore.collection<Turno>('turnos')
+    .get()
+    .switchMap(docs => of(...docs.docs))
+    .pipe(map(doc => doc.data() as Turno))
+    .pipe(reduce((series, turno) => {
+      let profesional = turno.profesional; 
+      let serie = series.find(serie => serie.name === profesional.nombre) || this.crearNuevaSeriePara(series, profesional.nombre);
+      serie.data.length ? serie.data[0] = serie.data[0] + 1 : serie.data.push(1);
+      return series;
+    }, []))
   }
 
   obtenerMedicosPorDia() {

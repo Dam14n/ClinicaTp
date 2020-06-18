@@ -2,12 +2,12 @@ import { Injectable } from '@angular/core';
 import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/firestore';
 import { PageEvent } from '@angular/material/paginator';
 import { firestore } from 'firebase';
-import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { Observable, of } from 'rxjs';
+import { map, reduce } from 'rxjs/operators';
 import { Profesional } from '../clases/profesional';
 import { Usuario } from '../clases/usuario';
 import { Especialidad } from '../clases/especialidad';
-
+import { DateFormatPipe } from '../pipe/date-format.pipe';
 @Injectable({
   providedIn: 'root'
 })
@@ -15,7 +15,7 @@ export class AuthService {
   usuariosCollectionRef: AngularFirestoreCollection<Usuario>;
   usuarios: Observable<Usuario[]>;
 
-  constructor(private angularFirestore: AngularFirestore) {
+  constructor(private angularFirestore: AngularFirestore, private dateFormat: DateFormatPipe) {
     this.usuariosCollectionRef = this.angularFirestore.collection<Usuario>('usuarios');
     this.usuarios = this.usuariosCollectionRef.valueChanges();
   }
@@ -108,6 +108,44 @@ export class AuthService {
         querySnapshots => {
           querySnapshots.docs.length ? onSuccess() : onError();
         })
+  }
+
+  obtenerProfesionalesRegistradosPorHorario() {
+    return this.angularFirestore.collection<Profesional>('usuarios',
+      ref => ref.where('tipo', '==', 2))
+      .get()
+      .switchMap(docs => of(...docs.docs))
+      .pipe(map(doc => doc.data() as Profesional))
+      .pipe(reduce((series, profesional) => {
+        let dia = this.dateFormat.transform((profesional.creation as firestore.Timestamp).toDate(), "h/MM/ss");
+        let serie = series.find(serie => serie.name === dia) || this.crearNuevaSeriePara(series, dia);
+        serie.data.length ? serie.data[0] = serie.data[0] + 1 : serie.data.push(1);
+        return series;
+      }, []))
+  }
+
+  obtenerProfesionalesRegistradosPorDia() {
+    return this.angularFirestore.collection<Profesional>('usuarios',
+      ref => ref.where('tipo', '==', 2))
+      .get()
+      .switchMap(docs => of(...docs.docs))
+      .pipe(map(doc => doc.data() as Profesional))
+      .pipe(reduce((series, profesional) => {
+        let dia = this.dateFormat.transform(profesional.creation.toDate(), "MM/dd/yyyy");
+        let serie = series.find(serie => serie.name === dia) || this.crearNuevaSeriePara(series, dia);
+        serie.data.length ? serie.data[0] = serie.data[0] + 1 : serie.data.push(1);
+        return series;
+      }, []))
+  }
+
+  private crearNuevaSeriePara(series: any[], nombre: string) {
+    let serie = {
+      name: nombre,
+      data: [],
+      type: undefined
+    };
+    series.push(serie);
+    return serie;
   }
 
 }

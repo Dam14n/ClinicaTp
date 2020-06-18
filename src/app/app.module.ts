@@ -27,6 +27,7 @@ import { VerUsuariosComponent } from './componentes/ver-usuarios/ver-usuarios.co
 import { AngularFirebaseModule } from './modulos/angular-firebase/angular-firebase.module';
 import { AngularMaterialModule } from './modulos/angular-material/angular-material.module';
 import { RuteoModule } from './modulos/ruteo/ruteo.module';
+import { DateFormatPipe } from './pipe/date-format.pipe';
 import { EnumToArrayPipe } from './pipe/enum-to-array.pipe';
 import { ExcludeFilterPipe } from './pipe/exclude-filter.pipe';
 
@@ -49,7 +50,8 @@ import { ExcludeFilterPipe } from './pipe/exclude-filter.pipe';
     VerUsuariosComponent,
     ConfiguracionProfesionalComponent,
     AtenderComponent,
-    EstadisticasComponent
+    EstadisticasComponent,
+    DateFormatPipe
   ],
   imports: [
     BrowserModule,
@@ -70,7 +72,7 @@ import { ExcludeFilterPipe } from './pipe/exclude-filter.pipe';
     RecaptchaFormsModule,
     ChartModule
   ],
-  providers: [EnumToArrayPipe, ExcludeFilterPipe, {
+  providers: [EnumToArrayPipe, ExcludeFilterPipe, DateFormatPipe, {
     provide: RECAPTCHA_SETTINGS, useValue: {
       siteKey: '6LdKEaYZAAAAABY3o0XC3h6K4DxqxQYC2DOY2IPj',
     } as RecaptchaSettings

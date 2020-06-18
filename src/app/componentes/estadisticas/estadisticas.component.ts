@@ -39,39 +39,51 @@ export class EstadisticasComponent implements OnInit {
   }
 
   profPorDia = () => {
-
+    this.usuarioService.obtenerProfesionalesRegistradosPorDia()
+    .subscribe(data => {
+      this.title = 'Profesionales registrados por dia';
+      this.crearChart(data);
+    });
   }
 
   profPorHorario = () => {
-
+    this.usuarioService.obtenerProfesionalesRegistradosPorHorario()
+    .subscribe(data => {
+      this.title = 'Profesionales registrados por horario';
+      this.crearChart(data);
+    });
   }
 
   turnosPorEspecialidad = () => {
-    this.turnoService.obtenerTurnosPorEspecialidad()    
-    .subscribe(data => {
-      this.title = 'Turnos Por Especialidad';
-      this.crearChart(data);
-    });
+    this.turnoService.obtenerTurnosPorEspecialidad()
+      .subscribe(data => {
+        this.title = 'Turnos Por Especialidad';
+        this.crearChart(data);
+      });
   }
 
   turnosPorDia = () => {
     this.turnoService.obtenerTurnosPorDia()
-    .subscribe(data => {
-      this.title = 'Turnos Por dia';
-      this.crearChart(data);
-    });
+      .subscribe(data => {
+        this.title = 'Turnos Por dia';
+        this.crearChart(data);
+      });
   }
 
   medicosPorDia = () => {
     this.turnoService.obtenerMedicosPorDia()
-    .subscribe(data => {
-      this.title = 'Medicos Por dia';
-      this.crearChart(data);
-    });
+      .subscribe(data => {
+        this.title = 'Medicos Por dia';
+        this.crearChart(data);
+      });
   }
 
   medicosPorTurnos = () => {
-    this.turnoService.obtenerMedicosPorTurnos();
+    this.turnoService.obtenerMedicosPorTurnos()
+      .subscribe(data => {
+        this.title = 'Medicos Por Turnos';
+        this.crearChart(data);
+      });
   }
 
 }
