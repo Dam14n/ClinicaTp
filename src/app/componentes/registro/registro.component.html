@@ -78,7 +78,7 @@
             *ngIf="signUpForm.controls.verificarRecaptcha.value" 
             formControlName="recaptcha"
             (resolved)="resolved($event,'as')"
-            siteKey="6LdKEaYZAAAAABY3o0XC3h6K4DxqxQYC2DOY2IPj">
+            siteKey="6LdZeaYZAAAAAIGvty-Qz4Iyiq4afjOGRiT8rlzy">
           </re-captcha>
           <button [ngClass]="{'button-dissabled': signUpForm.invalid}" class="btn btn-lg btn-primary btn-block text-uppercase" (click)=registrarUsuario() [disabled]="signUpForm.invalid">Registrarse</button>
           <button class="btn btn-lg btn-primary btn-block text-uppercase" (click)="cancelar()">Cancelar</button>

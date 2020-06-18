@@ -10,7 +10,6 @@ import { Profesional } from 'src/app/clases/profesional';
 import { Usuario } from 'src/app/clases/usuario';
 import { TipoUsuario } from 'src/app/enum/tipo-usuario.enum';
 import { AuthService } from 'src/app/servicios/auth.service';
-import { ArchivoService } from 'src/app/servicios/archivo.service';
 
 export class MyErrorStateMatcher implements ErrorStateMatcher {
 	isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
@@ -47,7 +46,7 @@ export class RegistroComponent implements OnInit {
 		email: new FormControl('', [Validators.required, Validators.email]),
 		tipo: new FormControl('', Validators.required),
 		verificarRecaptcha: new FormControl(true),
-		recaptcha: new FormControl('', Validators.required)
+		recaptcha: new FormControl(null, Validators.required)
 	}, this.validarClaves);
 
 	hideClave = true;
@@ -62,8 +61,7 @@ export class RegistroComponent implements OnInit {
 
 	constructor(
 		private authService: AuthService,
-		private router: Router,
-		private archivoService: ArchivoService) {
+		private router: Router) {
 	}
 
 	ngOnInit() {
