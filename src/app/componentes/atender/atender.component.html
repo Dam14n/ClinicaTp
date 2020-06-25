@@ -9,11 +9,33 @@
             <textarea matInput matTextareaAutosize formControlName="comentarioProfesional"></textarea>
           </mat-form-field>
           <hr>
+          <mat-form-field appearance="fill">
+            <mat-label>Ingrese una edad</mat-label>
+            <input matInput placeholder="Edad..." [formControl]="turnoForm.controls.edad" required type="number">
+            <mat-error *ngIf="turnoForm.controls.edad.invalid">
+              Por favor inserte una edad!!
+            </mat-error>
+          </mat-form-field>
+          <mat-form-field appearance="fill">
+            <mat-label>Ingrese una temperatura</mat-label>
+            <input matInput placeholder="Temperatura..." [formControl]="turnoForm.controls.temperatura" required>
+            <mat-error *ngIf="turnoForm.controls.temperatura.invalid">
+              Por favor inserte una temperatura!!
+            </mat-error>
+          </mat-form-field>
+          <mat-form-field appearance="fill">
+            <mat-label>Ingrese una presion</mat-label>
+            <input matInput placeholder="Presion..." [formControl]="turnoForm.controls.presion" required>
+            <mat-error *ngIf="turnoForm.controls.presion.invalid">
+              Por favor inserte una presion!!
+            </mat-error>
+          </mat-form-field>
+          <hr>
           INFORMACION EXTRA:
           <button mat-button matSuffix mat-icon-button aria-label="Clear" (click)="agregarCampoNuevo = true">
             <mat-icon>check</mat-icon>
           </button>
-          <div *ngIf="agregarCampoNuevo" class="info-container"> 
+          <div *ngIf="agregarCampoNuevo && informacionExtra.length < 3" class="info-container"> 
             <mat-form-field class="example-full-width">
               <mat-label>Nombre</mat-label>
               <input matInput placeholder="Ej Edad" value [(ngModel)]="campoNuevo.nombre" [ngModelOptions]="{standalone: true}">

@@ -20,7 +20,10 @@ export class AtenderComponent implements OnInit {
   @Input() showAdmin = false;
   turno: Turno;
   turnoForm = new FormGroup({
-    comentarioProfesional: new FormControl('', Validators.required)
+    comentarioProfesional: new FormControl('', Validators.required),
+    edad: new FormControl(0, Validators.required),
+    temperatura: new FormControl('', Validators.required),
+    presion: new FormControl('', Validators.required),
   });
   displayedColumns: string[] = ['nombre', 'valor', 'quitar'];
   informacionExtra = [];
@@ -28,7 +31,6 @@ export class AtenderComponent implements OnInit {
   campoNuevo = { nombre: '', valor: '' };
 
   constructor(
-    private authService: AuthService,
     private router: Router,
     private turnoService: TurnoService,
     private route: ActivatedRoute) {
@@ -41,9 +43,7 @@ export class AtenderComponent implements OnInit {
     });
   }
 
-  ngOnInit() {
-
-  }
+  ngOnInit() { }
 
   cancelar() {
     this.router.navigate(['']);
@@ -51,6 +51,9 @@ export class AtenderComponent implements OnInit {
 
   completarAtencion = () => {
     this.turno.comentarioProfesional = this.turnoForm.controls.comentarioProfesional.value;
+    this.informacionExtra.push({ nombre: 'Edad', valor: this.turnoForm.controls.edad.value });
+    this.informacionExtra.push({ nombre: 'Temperatura', valor: this.turnoForm.controls.temperatura.value });
+    this.informacionExtra.push({ nombre: 'Presion', valor: this.turnoForm.controls.presion.value });
     this.turno.informacionExtra = this.informacionExtra;
     this.turno.estado = TurnoEstado.FINALIZADO;
     this.turnoService.actualizarTurno(this.turno);
